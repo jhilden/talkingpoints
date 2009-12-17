@@ -1,0 +1,33 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  description: MyText
+  location_type_id: 1
+  bluetooth_mac: MyString
+  wifi_mac: MyString
+  lat: MyString
+  lng: MyString
+  street: MyString
+  city: MyString
+  state: MyString
+  postal_code: MyString
+  country: MyString
+  url: MyString
+  hide: false
+
+two:
+  name: MyString
+  description: MyText
+  location_type_id: 1
+  bluetooth_mac: MyString
+  wifi_mac: MyString
+  lat: MyString
+  lng: MyString
+  street: MyString
+  city: MyString
+  state: MyString
+  postal_code: MyString
+  country: MyString
+  url: MyString
+  hide: false

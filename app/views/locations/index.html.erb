@@ -1,0 +1,46 @@
+<h1>Listing locations</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Location type</th>
+    <th>Bluetooth mac</th>
+    <th>Wifi mac</th>
+    <th>Lat</th>
+    <th>Lng</th>
+    <th>Street</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Postal code</th>
+    <th>Country</th>
+    <th>Url</th>
+    <th>Hide</th>
+  </tr>
+
+<% @locations.each do |location| %>
+  <tr>
+    <td><%=h location.name %></td>
+    <td><%=h location.description %></td>
+    <td><%=h location.location_type_id %></td>
+    <td><%=h location.bluetooth_mac %></td>
+    <td><%=h location.wifi_mac %></td>
+    <td><%=h location.lat %></td>
+    <td><%=h location.lng %></td>
+    <td><%=h location.street %></td>
+    <td><%=h location.city %></td>
+    <td><%=h location.state %></td>
+    <td><%=h location.postal_code %></td>
+    <td><%=h location.country %></td>
+    <td><%=h location.url %></td>
+    <td><%=h location.hide %></td>
+    <td><%= link_to 'Show', location %></td>
+    <td><%= link_to 'Edit', edit_location_path(location) %></td>
+    <td><%= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New location', new_location_path %>

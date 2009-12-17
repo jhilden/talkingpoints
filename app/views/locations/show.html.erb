@@ -1,0 +1,73 @@
+<p>
+  <b>Name:</b>
+  <%=h @location.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @location.description %>
+</p>
+
+<p>
+  <b>Location type:</b>
+  <%=h @location.location_type_id %>
+</p>
+
+<p>
+  <b>Bluetooth mac:</b>
+  <%=h @location.bluetooth_mac %>
+</p>
+
+<p>
+  <b>Wifi mac:</b>
+  <%=h @location.wifi_mac %>
+</p>
+
+<p>
+  <b>Lat:</b>
+  <%=h @location.lat %>
+</p>
+
+<p>
+  <b>Lng:</b>
+  <%=h @location.lng %>
+</p>
+
+<p>
+  <b>Street:</b>
+  <%=h @location.street %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%=h @location.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%=h @location.state %>
+</p>
+
+<p>
+  <b>Postal code:</b>
+  <%=h @location.postal_code %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%=h @location.country %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%=h @location.url %>
+</p>
+
+<p>
+  <b>Hide:</b>
+  <%=h @location.hide %>
+</p>
+
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>
