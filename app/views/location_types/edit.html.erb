@@ -1,0 +1,16 @@
+<h1>Editing location_type</h1>
+
+<% form_for(@location_type) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @location_type %> |
+<%= link_to 'Back', location_types_path %>
