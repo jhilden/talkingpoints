@@ -68,6 +68,20 @@
   <%=h @location.hide %>
 </p>
 
+<div>
+	<strong>Sections:</strong>
+	
+	<% unless @location.sections == nil %>
+	  <ul>
+	  <% @location.sections.each do |section| %>
+		  <li><%= link_to section.name, location_section_path(@location, section) %></li>
+		<% end #@location.section.each %>
+		</ul>
+	<% else %>
+	  No sections
+	<% end %>
+</div>
+
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>

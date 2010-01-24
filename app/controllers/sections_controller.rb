@@ -1,9 +1,8 @@
 class SectionsController < ApplicationController
-  # GET /sections
-  # GET /sections.xml
+  # GET /locations/:id/sections
+  # GET /locations/:id/sections.xml
   def index
     @location = Location.find(params[:location_id])
-    @sections = Section.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -11,10 +10,11 @@ class SectionsController < ApplicationController
     end
   end
 
-  # GET /sections/1
-  # GET /sections/1.xml
+  # GET /locations/:id/sections/1
+  # GET /locations/:id/sections/1.xml
   def show
     @section = Section.find(params[:id])
+    @location = @section.location
 
     respond_to do |format|
       format.html # show.html.erb
@@ -22,9 +22,10 @@ class SectionsController < ApplicationController
     end
   end
 
-  # GET /sections/new
-  # GET /sections/new.xml
+  # GET /locations/:id/sections/new
+  # GET /locations/:id/sections/new.xml
   def new
+    @location = Location.find(params[:location_id])
     @section = Section.new
 
     respond_to do |format|
@@ -33,21 +34,23 @@ class SectionsController < ApplicationController
     end
   end
 
-  # GET /sections/1/edit
+  # GET /locations/:id/sections/1/edit
   def edit
     @section = Section.find(params[:id])
+    @location = @section.location
   end
 
-  # POST /sections
-  # POST /sections.xml
+  # POST /locations/:id/sections
+  # POST /locations/:id/sections.xml
   def create
+    @location = Location.find(params[:location_id])
     @section = Section.new(params[:section])
 
     respond_to do |format|
       if @section.save
         flash[:notice] = 'Section was successfully created.'
-        format.html { redirect_to(@section) }
-        format.xml  { render :xml => @section, :status => :created, :location => @section }
+        format.html { redirect_to(location_section_path(@location, @section)) }
+        format.xml  { render :xml => @section, :status => :created, :location => location_section_path(@location, @section) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @section.errors, :status => :unprocessable_entity }
@@ -55,15 +58,16 @@ class SectionsController < ApplicationController
     end
   end
 
-  # PUT /sections/1
-  # PUT /sections/1.xml
+  # PUT /locations/:id/sections/1
+  # PUT /locations/:id/sections/1.xml
   def update
     @section = Section.find(params[:id])
+    @location = @section.location
 
     respond_to do |format|
       if @section.update_attributes(params[:section])
         flash[:notice] = 'Section was successfully updated.'
-        format.html { redirect_to(@section) }
+        format.html { redirect_to(location_section_path(@location, @section)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -72,14 +76,14 @@ class SectionsController < ApplicationController
     end
   end
 
-  # DELETE /sections/1
-  # DELETE /sections/1.xml
+  # DELETE /locations/:id/sections/1
+  # DELETE /locations/:id/sections/1.xml
   def destroy
     @section = Section.find(params[:id])
     @section.destroy
 
     respond_to do |format|
-      format.html { redirect_to(sections_url) }
+      format.html { redirect_to(location_sections_path(@location)) }
       format.xml  { head :ok }
     end
   end
