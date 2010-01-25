@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  # GET /comments
-  # GET /comments.xml
+  # GET /locations/:id/comments
+  # GET /locations/:id/comments.xml
   def index
     @location = Location.find(params[:location_id])
     @comments = @location.comments
@@ -11,8 +11,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /comments/1
-  # GET /comments/1.xml
+  # GET /locations/:id/comments/1
+  # GET /locations/:id/comments/1.xml
   def show
     @comment = Comment.find(params[:id])
     @location = @comment.location
@@ -23,11 +23,12 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /comments/new
-  # GET /comments/new.xml
+  # GET /locations/:id/comments/new
+  # GET /locations/:id/comments/new.xml
   def new
     @location = Location.find(params[:location_id])
-    @comment = Comment.new
+    @comment = Comment.new()
+    @comment.location = @location
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,17 +36,18 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /comments/1/edit
+  # GET /locations/:id/comments/1/edit
   def edit
     @comment = Comment.find(params[:id])
     @location = @comment.location
   end
 
-  # POST /comments
-  # POST /comments.xml
+  # POST /locations/:id/comments
+  # POST /locations/:id/comments.xml
   def create
     @location = Location.find(params[:location_id])
     @comment = Comment.new(params[:comment])
+    @comment.location = @location
 
     respond_to do |format|
       if @comment.save
@@ -59,8 +61,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # PUT /comments/1
-  # PUT /comments/1.xml
+  # PUT /locations/:id/comments/1
+  # PUT /locations/:id/comments/1.xml
   def update
     @comment = Comment.find(params[:id])
     @location = @comment.location
@@ -77,8 +79,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # DELETE /comments/1
-  # DELETE /comments/1.xml
+  # DELETE /locations/:id/comments/1
+  # DELETE /locations/:id/comments/1.xml
   def destroy
     @comment = Comment.find(params[:id])
     @location = @comment.location

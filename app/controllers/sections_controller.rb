@@ -27,6 +27,7 @@ class SectionsController < ApplicationController
   def new
     @location = Location.find(params[:location_id])
     @section = Section.new
+    @section.location = @location
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,6 +46,7 @@ class SectionsController < ApplicationController
   def create
     @location = Location.find(params[:location_id])
     @section = Section.new(params[:section])
+    @section.location = @location
 
     respond_to do |format|
       if @section.save
@@ -80,6 +82,7 @@ class SectionsController < ApplicationController
   # DELETE /locations/:id/sections/1.xml
   def destroy
     @section = Section.find(params[:id])
+    @location = @section.location
     @section.destroy
 
     respond_to do |format|
