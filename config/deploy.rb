@@ -16,6 +16,7 @@ role :db,  "talkingpoints.dreamhosters.com", :primary => true   # This is where 
 set :user, "tpoints"
 set :use_sudo, false
 set :deploy_to, "/home/tpoints/talkingpoints.dreamhosters.com/#{application}"
+set :migrate_target, :current
 
 set :rails_env, "development"
 set :migrate_target, "current"
