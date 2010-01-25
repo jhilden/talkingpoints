@@ -1,3 +1,5 @@
+<h1>Location (id: <%= @location.id %>)</h1>
+
 <p>
   <b>Name:</b>
   <%=h @location.name %>
@@ -68,6 +70,8 @@
   <%=h @location.hide %>
 </p>
 
+<hr />
+
 <div>
 	<strong>Sections:</strong>
 	
@@ -81,6 +85,24 @@
 	  No sections
 	<% end %>
 </div>
+
+<hr />
+
+<div>
+  <strong>Comments:</strong>
+  
+  <% unless @location.comments == nil %>
+    <ul>
+    <% @location.comments.each do |comment| %>
+      <li><%= link_to comment.title, location_comment_path(@location, comment) %></li>
+    <% end #@location.comment.each %>
+    </ul>
+  <% else %>
+    No sections
+  <% end %>
+</div>
+
+<hr />
 
 
 <%= link_to 'Edit', edit_location_path(@location) %> |

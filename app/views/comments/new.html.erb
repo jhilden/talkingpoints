@@ -1,6 +1,6 @@
 <h1>New comment</h1>
 
-<% form_for(@comment) do |f| %>
+<% form_for(@comment, :url => location_comments_path(@location)) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -24,4 +24,4 @@
   </p>
 <% end %>
 
-<%= link_to 'Back', comments_path %>
+<%= link_to 'Back', location_comments_path(@location) %>

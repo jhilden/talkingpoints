@@ -14,13 +14,13 @@
     <td><%=h comment.text %></td>
     <td><%=h comment.location_id %></td>
     <td><%=h comment.user_id %></td>
-    <td><%= link_to 'Show', comment %></td>
-    <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
-    <td><%= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', location_comment_path(@location, comment) %></td>
+    <td><%= link_to 'Edit', edit_location_comment_path(@location, comment) %></td>
+    <td><%= link_to 'Destroy', location_comment_path(@location, comment), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New comment', new_comment_path %>
+<%= link_to 'New comment', new_location_comment_path(@location) %>
