@@ -6,14 +6,13 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 
-location_types = LocationType.create([
-  {:name => "Restaurant"},
-  {:name => "Store"},
-  {:name => "Public building"},
-  {:name => "misc"}
-])
-coffee_shop = LocationType.create(:name => "Coffee shop")
+location_types = ["Restaurant", "Store", "Public building", "misc"]
+location_types.each do |location_type|
+  LocationType.find_or_create_by_name(location_type)
+end
+coffee_shop = LocationType.find_or_create_by_name("Coffee shop")
 
+User.delete_all
 users = User.create([
   {:username => "admin", :email => "admin@talking-points.org"},
   {:username => "johndoe", :email => "john@doe.com"},
@@ -21,6 +20,7 @@ users = User.create([
 ])
 jakob = User.create(:username => "jhilden", :email => "jakobhilden@gmail.com")
 
+Location.delete_all
 espresso_royale = Location.create(
   :name => "Espresso Royale", :description => "A coffee shop",
   :location_type => coffee_shop, :user => jakob,
