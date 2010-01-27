@@ -5,7 +5,13 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   
+  map.resource :user_session
+  map.resource :account, :controller => :users
+  map.login 'login', :controller => 'user_sessions', :action => 'new'
+  map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
+  map.register 'register', :controller => 'users', :action => 'new'
   map.resources :users
+  
   map.resources :location_types
   
   
