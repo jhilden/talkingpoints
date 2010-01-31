@@ -1,4 +1,6 @@
 class LocationsController < ApplicationController
+  before_filter :require_user, :except => [:index, :show]
+  
   # GET /locations
   # GET /locations.xml
   def index

@@ -1,4 +1,6 @@
 class SectionsController < ApplicationController
+  before_filter :require_user, :except => [:index, :show]
+  
   # GET /locations/:id/sections
   # GET /locations/:id/sections.xml
   def index

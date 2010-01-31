@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_filter :require_user, :except => [:index, :show]
+  
   # GET /locations/:id/comments
   # GET /locations/:id/comments.xml
   def index
@@ -40,6 +42,10 @@ class CommentsController < ApplicationController
   def edit
     @comment = Comment.find(params[:id])
     @location = @comment.location
+    if @comment.user != current_user
+      flash[:notice] = "You are not allowed to edit this comment."
+      redirect_to(location_comment_path(@location, @comment)) and return
+    end
   end
 
   # POST /locations/:id/comments
@@ -65,9 +71,14 @@ class CommentsController < ApplicationController
   # PUT /locations/:id/comments/1
   # PUT /locations/:id/comments/1.xml
   def update
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find_by_id(params[:id])
     @location = @comment.location
-
+    
+    if @comment.user != current_user
+      flash[:notice] = "You are not allowed to update this comment."
+      redirect_to(location_comment_path(@location, @comment)) and return
+    end
+    
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
         flash[:notice] = 'Comment was successfully updated.'
@@ -83,8 +94,14 @@ class CommentsController < ApplicationController
   # DELETE /locations/:id/comments/1
   # DELETE /locations/:id/comments/1.xml
   def destroy
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find_by_id(params[:id])
     @location = @comment.location
+    
+    if @comment.user != current_user
+      flash[:notice] = "You are not allowed to delete this comment."
+      redirect_to(location_comment_path(@location, @comment)) and return
+    end
+    
     @comment.destroy
 
     respond_to do |format|
