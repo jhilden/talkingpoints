@@ -48,6 +48,7 @@ class CommentsController < ApplicationController
     @location = Location.find(params[:location_id])
     @comment = Comment.new(params[:comment])
     @comment.location = @location
+    @comment.user = current_user
 
     respond_to do |format|
       if @comment.save

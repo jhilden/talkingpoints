@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user
+  
+  # used to make helper methods available in controllers (for location_controller.format_location_output)
+  def view_helper
+    Helper.instance
+  end
 
   private
     def current_user_session
@@ -45,5 +50,11 @@ class ApplicationController < ActionController::Base
     def redirect_back_or_here(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
+    end
+  
+    # used to make helper methods available in controllers (for location_controller.format_location_output)
+    class Helper
+      include Singleton
+      include ActionView::Helpers::DateHelper
     end
 end

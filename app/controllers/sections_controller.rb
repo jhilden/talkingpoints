@@ -47,6 +47,7 @@ class SectionsController < ApplicationController
     @location = Location.find(params[:location_id])
     @section = Section.new(params[:section])
     @section.location = @location
+    @section.user = current_user
 
     respond_to do |format|
       if @section.save
