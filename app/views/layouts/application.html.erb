@@ -5,13 +5,39 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= controller.controller_name %> : <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'screen' %>
 </head>
 <body>
-
-<p style="color: green"><%= flash[:notice] %></p>
-
-<%= yield %>
+	
+	<div id="head" class="clearfix">
+    <h1><%= link_to "app.talking-points.org", root_path %></h1>
+    
+    <div id="user_nav">
+      <% if current_user %>
+        <%= link_to "Edit account", edit_user_path(:current) %> |
+        <%= link_to "Logout", logout_path %>
+      <% else %>
+        <%= link_to "Register", register_path %> |
+				<%= link_to "Login", login_path %>
+      <% end %>
+    </div>
+		
+		<ul id="breadcrumb_nav">
+			 <li><%= link_to "Locations", root_path %></li>
+			 <% if params[:location_id] %>
+			   <li>> <%= link_to @location.name, location_path(@location) %></li>
+			 <% end %>
+		</ul>
+  </div>
+  
+  <div id="content">
+    <% if flash.length > 0 %>
+      <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
+    
+    <%= yield %>
+  
+  </div>
 
 </body>
 </html>

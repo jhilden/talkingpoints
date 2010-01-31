@@ -3,3 +3,4 @@ log/*.log
 db/schema.rb
 .project
 .loadpath
+.tmp_*
