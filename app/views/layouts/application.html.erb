@@ -24,9 +24,21 @@
 		
 		<ul id="breadcrumb_nav">
 			 <li><%= link_to "Locations", root_path %></li>
-			 <% if params[:location_id] %>
-			   <li>> <%= link_to @location.name, location_path(@location) %></li>
+			 <% if @location.id %>
+			   <li>> <%= link_to @location.name, @location %></li>
 			 <% end %>
+			 <% if controller.controller_name == "sections" %>
+			   <li>> <%= link_to "Sections", location_sections_path(@location) %></li>
+			   <% if @section.id %>
+           <li>> <%= link_to @section.name, location_section_path(@location, @section) %></li>
+				 <% end %>
+       <% end %>
+			 <% if controller.controller_name == "comments" %>
+         <li>> <%= link_to "Comments", location_comments_path(@location) %></li>
+         <% if @comment.id %>
+           <li>> <%= link_to @comment.title, location_comment_path(@location, @comment) %></li>
+         <% end %>
+       <% end %>
 		</ul>
   </div>
   
