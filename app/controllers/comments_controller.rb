@@ -28,13 +28,21 @@ class CommentsController < ApplicationController
   # GET /locations/:id/comments/new
   # GET /locations/:id/comments/new.xml
   def new
-    @location = Location.find(params[:location_id])
-    @comment = Comment.new()
-    @comment.location = @location
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @comment }
+    @location = Location.find_by_id(params[:location_id])
+    
+    if @location
+      @comment = Comment.new()
+      @comment.location = @location
+  
+      respond_to do |format|
+        format.html # new.html.erb
+        format.xml  { render :xml => @comment }
+      end
+    else
+      respond_to do |format|
+        format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => :not_found }
+        format.xml  { head :status => :not_found }
+      end
     end
   end
 
