@@ -20,6 +20,10 @@ body, p, ol, ul, td {
 * html .clearfix             { zoom: 1; } /* IE6 */
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
+#wrap {
+	max-width: 960px;
+}
+
 pre {
   background-color: #eee;
   padding: 10px;
