@@ -18,11 +18,12 @@ else
   misc = type1
 end
 
-location_type_names = ["Restaurant", "Store", "Public building"]
+location_type_names = ["Restaurant", "Store"]
 location_type_names.each do |location_type_name|
   LocationType.find_or_create_by_name(location_type_name)
 end
 coffee_shop = LocationType.find_or_create_by_name("Coffee shop")
+public_building = LocationType.find_or_create_by_name("Public building")
 
 ###### Users ######
 
@@ -38,9 +39,45 @@ jhilden = User.create(:username => "jhilden", :email => "jakobhilden@gmail.com",
 
 Location.delete_all
 espresso_royale = Location.create(
-  :name => "Espresso Royale", :description => "A coffee shop",
-  :location_type => coffee_shop, :user => jhilden,
-  :street => "South University", :city => "Ann Arbor"
+  :name => "Espresso Royale",
+  :description => "Free wi-fi. Inside there are several distinct seating areas to chat and study. \r\n$2 latte special for any size latte on Wednesday.",
+  :location_type => coffee_shop,
+  :user => jhilden,
+  :lat => '42.275082', :lng => '-83.735580',
+  :street => "1101 S. University St.",
+  :city => "Ann Arbor",
+  :state => "MI",
+  :postal_code => "48104",
+  :url => 'http://www.espressoroyale.com/location.php?id=20',
+  :phone => '734.327.0740',
+  :bluetooth_mac => '00194fa4e272'
+)
+espresso_royale = Location.create(
+  :name => 'West Hall',
+  :description => 'West Hall is home of the School of Information''s central administrative offices, classrooms, and some faculty.\r\n\r\nIt''s one of the oldest Building at the University of Michigan, Ann Arbor.\r\n',
+  :location_type => public_building,
+  :user => johndoe,
+  :lat => '42.275309', :lng => '-83.736012',
+  :street => '1085 South University Ave.',
+  :city => 'Ann Arbor',
+  :state => 'MI',
+  :postal_code => '48109',
+  :country => 'US',
+  :url => 'http://si.umich.edu/',
+  :phone => '(734) 647-3576'
+)
+white_house = Location.create(
+  :name => 'The White House',
+  :description => 'Home of President Obama.',
+  :location_type => public_building,
+  :user => johndoe,
+  :street => '1600 Pennsylvania Ave NW',
+  :city => 'Washington',
+  :state => 'DC',
+  :postal_code => '20500',
+  :country => 'US',
+  :url => 'http://www.whitehouse.gov/',
+  :phone => '(202) 456-1414'
 )
 
 ###### Comments ######

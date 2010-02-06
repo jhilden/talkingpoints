@@ -50,6 +50,7 @@ class CommentsController < ApplicationController
   def edit
     @comment = Comment.find(params[:id])
     @location = @comment.location
+    
     if @comment.user != current_user
       flash[:notice] = "You are not allowed to edit this comment."
       redirect_to(location_comment_path(@location, @comment)) and return

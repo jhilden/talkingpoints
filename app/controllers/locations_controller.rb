@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_filter :require_user, :except => [:index, :show]
+  before_filter :require_user, :except => [:index, :show, :show_by_bluetooth_mac]
   
   # GET /locations
   # GET /locations.xml
@@ -25,6 +25,15 @@ class LocationsController < ApplicationController
         format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => :not_found }
         format.xml { head :status => :not_found }
       end
+    end
+  end
+  
+  def show_by_bluetooth_mac
+    @location = Location.find(:first, :conditions => ["bluetooth_mac = ?", params[:id]], :include => [:sections, :comments])
+    
+    respond_to do |format|
+      format.html { render :template => "locations/show" }
+      format.xml  { render :xml => format_location_output(@location) }
     end
   end
 
@@ -113,12 +122,14 @@ class LocationsController < ApplicationController
   
       output['sections'] = Hash.new
       location.sections.each do |section|
-        output['sections'][section.name] = section.text
+        output['sections']['section-'+section.id.to_s] = Hash.new
+        output['sections']['section-'+section.id.to_s]['name'] = section.name
+        output['sections']['section-'+section.id.to_s]['text'] = section.text
       end
       if !location.comments.empty?
-        output['sections']['Comments'] = Hash.new
+        output['sections']['comments'] = Hash.new
         for comment in location.comments
-          output['sections']['Comments']['comment-'+comment.id.to_s] = {
+          output['sections']['comments']['comment-'+comment.id.to_s] = {
             'id' => comment.id,
             'title' => comment.title,
             'username' => comment.user.username,

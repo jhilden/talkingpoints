@@ -1,12 +1,17 @@
-body {
+html, body {
 	background-color: #fff;
 	color: #333;
+	padding: 0;
+	margin: 0:
 }
 
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size:   13px;
   line-height: 18px;
+}
+textarea {
+	height: 200px;
 }
 
 .clearfix:after {
@@ -21,7 +26,9 @@ body, p, ol, ul, td {
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
 #wrap {
-	max-width: 960px;
+	width: 960px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 pre {
@@ -77,6 +84,7 @@ a:hover { color: #fff; background-color:#000; }
 }
 #head h1 {
 	float: left;
+	margin-top: 0;
 }
 #user_nav {
 	float: right;
@@ -91,6 +99,7 @@ a:hover { color: #fff; background-color:#000; }
   float: left;
 	clear: both;
 	padding: 0;
+	margin-bottom: 0;
 }
 #breadcrumb_nav li {
 	display: inline;
