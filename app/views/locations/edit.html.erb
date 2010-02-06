@@ -13,7 +13,7 @@
   </p>
   <p>
     <%= f.label :location_type_id %><br />
-    <%= f.text_field :location_type_id %>
+    <%= collection_select :location, :location_type_id, @location_types, :id, :name %>
   </p>
   <p>
     <%= f.label :bluetooth_mac %><br />
