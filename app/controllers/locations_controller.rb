@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_filter :require_user, :except => [:index, :show, :show_by_bluetooth_mac]
+  before_filter :require_user, :except => [:index, :by_coordinates, :show, :show_by_bluetooth_mac]
   
   # GET /locations
   # GET /locations.xml
@@ -9,6 +9,38 @@ class LocationsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @locations }
+    end
+  end
+  
+  def by_coordinates
+    coordinates = params[:id].split(';')
+    coordinates[0].gsub!(',', '.').to_f
+    coordinates[1].gsub!(',', '.').to_f
+    
+    @locations = Location.find(:all, :origin => coordinates, :within => 1)
+    
+    @locations_basics = Hash.new
+    #markers = Array.new
+    @locations.each do |loc|
+      @locations_basics['location-'+loc.id.to_s] = {
+        'tpid'  => loc.id,
+        'lat' => loc.lat,
+        'lng' => loc.lng,
+        'distance' => loc.distance.to_f * 1000,
+        'bluetooth_mac' => loc.bluetooth_mac
+      }
+      #markers << GMarker.new([loc.lat, loc.lng], :info_window => loc.name)
+    end
+    
+    respond_to do |format|
+      format.html {
+        #@map = GMap.new("map_div")
+        #@map.control_init(:large_map => true, :map_type => true)
+        #@map.center_zoom_init(coordinates, 14)
+        #@map.overlay_global_init(GMarkerGroup.new(true, markers), "nearby")
+        render :template => 'locations/index'
+      } # index.html.erb
+      format.xml  { render :xml => @locations_basics }
     end
   end
 
@@ -43,7 +75,7 @@ class LocationsController < ApplicationController
     @location = Location.new
     @location.location_type_id = 1
     @location_types = LocationType.all
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @location }

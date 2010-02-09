@@ -4,6 +4,8 @@ class Location < ActiveRecord::Base
   belongs_to :user
   belongs_to :location_type
   
+  acts_as_mappable
+  
   validates_presence_of :name, :location_type
   validates_associated :user, :location_type
 end
