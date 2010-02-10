@@ -94,8 +94,3 @@ espresso_royale.comments.create(
   :text => "I went there the other day and the service was horrible",
   :user => ckaufman
 )
-west_hall.comments.create(
-	:title => "Test Comment",
-	:text => "This is a test comment",
-	:user => johndoe
-)
