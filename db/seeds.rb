@@ -53,7 +53,7 @@ espresso_royale = Location.create(
   :phone => '734.327.0740',
   :bluetooth_mac => '00194fa4e272'
 )
-espresso_royale = Location.create(
+west_hall = Location.create(
   :name => 'West Hall',
   :description => 'West Hall is home of the School of Information''s central administrative offices, classrooms, and some faculty.\r\n\r\nIt''s one of the oldest Building at the University of Michigan, Ann Arbor.\r\n',
   :location_type => public_building,
@@ -84,10 +84,18 @@ white_house = Location.create(
 ###### Comments ######
 
 Comment.delete_all
-Comment.create(
+espresso_royale.comments.create(
   :title => "A nice place",
   :text => "I went there the other day and they were very friendly",
-  :user => johndoe,
-  :location_id => 1
+  :user => johndoe
 )
-
+espresso_royale.comments.create(
+  :title => "Horrible service",
+  :text => "I went there the other day and the service was horrible",
+  :user => ckaufman
+)
+west_hall.comments.create(
+	:title => "Test Comment",
+	:text => "This is a test comment",
+	:user => johndoe
+)
