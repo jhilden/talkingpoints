@@ -34,7 +34,6 @@ users = User.create([
 ])
 johndoe = User.create(:username => "johndoe", :email => "john@doe.com", :password => "tpoints", :password_confirmation => "tpoints")
 jhilden = User.create(:username => "jhilden", :email => "jakobhilden@gmail.com", :password => "tpoints", :password_confirmation => "tpoints")
-ckaufman = User.create(:username => "ckaufman", :email => "kaufmanc@umich.edu", :password => "tpoints", :password_confirmation => "tpoints")
 
 ###### Locations ######
 
