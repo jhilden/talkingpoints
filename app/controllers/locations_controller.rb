@@ -1,8 +1,7 @@
 class LocationsController < ApplicationController
-  before_filter :require_user, :except => [:index, :by_coordinates, :show, :show_by_bluetooth_mac]
+  before_filter :require_user, :only => [:new, :edit, :create, :update, :destroy]
   
   # GET /locations
-  # GET /locations.xml
   def index
     @locations = Location.all
 
@@ -12,25 +11,13 @@ class LocationsController < ApplicationController
     end
   end
   
+  # GET /locations/by_coordinates
   def by_coordinates
     coordinates = params[:id].split(';')
     coordinates[0].gsub!(',', '.').to_f
     coordinates[1].gsub!(',', '.').to_f
     
     @locations = Location.find(:all, :origin => coordinates, :within => 1)
-    
-    @locations_basics = Hash.new
-    #markers = Array.new
-    @locations.each do |loc|
-      @locations_basics['location-'+loc.id.to_s] = {
-        'tpid'  => loc.id,
-        'lat' => loc.lat,
-        'lng' => loc.lng,
-        'distance' => loc.distance.to_f * 1000,
-        'bluetooth_mac' => loc.bluetooth_mac
-      }
-      #markers << GMarker.new([loc.lat, loc.lng], :info_window => loc.name)
-    end
     
     respond_to do |format|
       format.html {
@@ -40,12 +27,11 @@ class LocationsController < ApplicationController
         #@map.overlay_global_init(GMarkerGroup.new(true, markers), "nearby")
         render :template => 'locations/index'
       } # index.html.erb
-      format.xml  { render :xml => @locations_basics }
+      format.xml  { render :xml => format_locations_output(@locations) }
     end
   end
 
   # GET /locations/1
-  # GET /locations/1.xml
   def show
     @location = Location.find_by_id(params[:id], :include => [:sections, :comments])
 
@@ -60,17 +46,40 @@ class LocationsController < ApplicationController
     end
   end
   
+  # GET /locations/show_by_bluetooth_mac/1234567890
   def show_by_bluetooth_mac
     @location = Location.find(:first, :conditions => ["bluetooth_mac = ?", params[:id]], :include => [:sections, :comments])
     
     respond_to do |format|
-      format.html { render :template => "locations/show" }
-      format.xml  { render :xml => format_location_output(@location) }
+      if @location
+        format.html { render :template => "locations/show" }
+        format.xml  { render :xml => format_location_output(@location) }
+      else
+        format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => :not_found }
+        format.xml { head :status => :not_found }
+      end
     end
   end
+  
+  # GET /locations/1/get_nearby
+  def get_nearby
+    @location = Location.find_by_id(params[:id])
+    @locations = Location.find(:all, :origin => @location, :within => 1, :conditions => ["id != ?", @location.id])
 
+    respond_to do |format|
+      if @location
+        format.html  { render :template => 'locations/index' }
+        format.xml   { render :xml => format_locations_output(@locations) }
+        format.json  { render :json => format_locations_output(@locations) }
+      else
+        format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => :not_found }
+        format.xml  { head :status => :not_found }
+        format.json { head :status => :not_found }
+      end
+    end
+  end
+  
   # GET /locations/new
-  # GET /locations/new.xml
   def new
     @location = Location.new
     @location.location_type_id = 1
@@ -89,7 +98,6 @@ class LocationsController < ApplicationController
   end
 
   # POST /locations
-  # POST /locations.xml
   def create
     @location = Location.new(params[:location])
     @location.user = current_user
@@ -107,7 +115,6 @@ class LocationsController < ApplicationController
   end
 
   # PUT /locations/1
-  # PUT /locations/1.xml
   def update
     @location = Location.find(params[:id])
 
@@ -124,7 +131,6 @@ class LocationsController < ApplicationController
   end
 
   # DELETE /locations/1
-  # DELETE /locations/1.xml
   def destroy
     @location = Location.find(params[:id])
     @location.destroy
@@ -139,9 +145,6 @@ class LocationsController < ApplicationController
   
     def format_location_output(location)
       output = Hash.new
-      if location == nil
-        return "error"
-      end
     
       output = {
         'tpid' => location.id,
@@ -173,6 +176,22 @@ class LocationsController < ApplicationController
         end
       end
       
+      return output
+    end
+  
+    def format_locations_output(locations)
+      output = Hash.new
+      #markers = Array.new
+      locations.each do |loc|
+        output['location-'+loc.id.to_s] = {
+          'tpid'  => loc.id,
+          'lat' => loc.lat,
+          'lng' => loc.lng,
+          'distance' => loc.distance.to_f * 1000,
+          'bluetooth_mac' => loc.bluetooth_mac
+        }
+        #markers << GMarker.new([loc.lat, loc.lng], :info_window => loc.name)
+      end
       return output
     end
 end
