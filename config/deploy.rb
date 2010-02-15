@@ -17,7 +17,7 @@ set :user, "tpoints"
 set :use_sudo, false
 set :deploy_to, "/home/tpoints/app.talking-points.org/"
 set :migrate_target, :current
-set :rails_env, "development"
+set :rails_env, "production"
 
 
 
@@ -32,7 +32,9 @@ namespace :deploy do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
   
-  task :after_symlink, :roles => :app do
+  task :symlink_database, :roles => :app do
     run "ln -s #{deploy_to}/shared/config/database.yml #{deploy_to}/current/config/database.yml"
   end
 end
+
+after 'deploy:symlink', 'deploy:symlink_database'
