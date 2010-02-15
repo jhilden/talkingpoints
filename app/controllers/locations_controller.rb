@@ -7,7 +7,8 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @locations }
+      format.xml  { render :xml  => format_locations_output(@locations) }
+      format.json { render :json => format_locations_output(@locations) }
     end
   end
   
@@ -27,7 +28,8 @@ class LocationsController < ApplicationController
         #@map.overlay_global_init(GMarkerGroup.new(true, markers), "nearby")
         render :template => 'locations/index'
       } # index.html.erb
-      format.xml  { render :xml => format_locations_output(@locations) }
+      format.xml   { render :xml  => format_locations_output(@locations) }
+      format.json  { render :json => format_locations_output(@locations) }
     end
   end
 
@@ -38,10 +40,12 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if @location
         format.html # show.html.erb
-        format.xml  { render :xml => format_location_output(@location) }
+        format.xml   { render :xml  => format_location_output(@location) }
+        format.json  { render :json => format_location_output(@location) }
       else
         format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => :not_found }
-        format.xml { head :status => :not_found }
+        format.xml  { head :status => :not_found }
+        format.json { head :status => :not_found }
       end
     end
   end
@@ -53,10 +57,12 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if @location
         format.html { render :template => "locations/show" }
-        format.xml  { render :xml => format_location_output(@location) }
+        format.xml  { render :xml  => format_location_output(@location) }
+        format.json { render :json => format_location_output(@location) }
       else
         format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => :not_found }
-        format.xml { head :status => :not_found }
+        format.xml  { head :status => :not_found }
+        format.json { head :status => :not_found }
       end
     end
   end
