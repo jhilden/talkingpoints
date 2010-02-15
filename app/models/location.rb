@@ -5,6 +5,7 @@ class Location < ActiveRecord::Base
   belongs_to :location_type
   
   acts_as_mappable
+  attr_accessor :distance
   
   validates_presence_of :name, :location_type
   validates_associated :user, :location_type
