@@ -15,7 +15,7 @@
 
 <% @locations.each do |location| %>
   <tr>
-    <td><%=h location.name %></td>
+    <td><%= link_to h(location.name), location %></td>
     <td><%=h location.location_type.name %></td>
     <td><%=h location.bluetooth_mac %></td>
     <td><%=h location.lat %></td>
@@ -24,7 +24,6 @@
     <td><%=h location.city %></td>
     <td><%=h location.state %></td>
     <td><%=h location.postal_code %></td>
-    <td><%= link_to 'Show', location %></td>
     <td><%= link_to 'Edit', edit_location_path(location) %></td>
     <td><%= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

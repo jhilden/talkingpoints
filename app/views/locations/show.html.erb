@@ -1,73 +1,41 @@
-<h1>Location (id: <%= @location.id %>)</h1>
+<h1><%=h @location.name %></h1>
 
 <p>
-  <b>Name:</b>
-  <%=h @location.name %>
-</p>
-
-<p>
-  <b>Description:</b>
+  <strong>Description:</strong>
   <%=h @location.description %>
 </p>
 
 <p>
-  <b>Location type:</b>
+  <strong>Location type:</strong>
   <%=h @location.location_type.name %>
 </p>
 
 <p>
-  <b>Bluetooth mac:</b>
+  <strong>Bluetooth mac:</strong>
   <%=h @location.bluetooth_mac %>
 </p>
 
 <p>
-  <b>Wifi mac:</b>
-  <%=h @location.wifi_mac %>
+  <strong>Coordinates (lat / lng):</strong>
+  <%=h @location.lat %> / <%=h @location.lng %>
 </p>
 
 <p>
-  <b>Lat:</b>
-  <%=h @location.lat %>
+  <strong>Address:</strong><br />
+  <%=h @location.street %><br />
+	<%=h @location.city %>, <%=h @location.state %><br />
+	<%=h @location.postal_code %><br />
+	<%=h @location.country %>
 </p>
 
 <p>
-  <b>Lng:</b>
-  <%=h @location.lng %>
+  <strong>Phone:</strong>
+  <%=h @location.phone %>
 </p>
 
 <p>
-  <b>Street:</b>
-  <%=h @location.street %>
-</p>
-
-<p>
-  <b>City:</b>
-  <%=h @location.city %>
-</p>
-
-<p>
-  <b>State:</b>
-  <%=h @location.state %>
-</p>
-
-<p>
-  <b>Postal code:</b>
-  <%=h @location.postal_code %>
-</p>
-
-<p>
-  <b>Country:</b>
-  <%=h @location.country %>
-</p>
-
-<p>
-  <b>Url:</b>
-  <%=h @location.url %>
-</p>
-
-<p>
-  <b>Hide:</b>
-  <%=h @location.hide %>
+  <strong>Url:</strong>
+  <%= link_to @location.url, @location.url %>
 </p>
 
 <hr />
@@ -82,8 +50,10 @@
 		<% end #@location.section.each %>
 		</ul>
 	<% else %>
-	  No sections
+	  No sections yet
 	<% end %>
+	
+	<%= link_to 'New section', new_location_section_path(@location) %>
 </div>
 
 <hr />
@@ -92,14 +62,19 @@
   <strong>Comments:</strong>
   
   <% unless @location.comments == nil %>
-    <ul>
+	  <ul>
     <% @location.comments.each do |comment| %>
-      <li><%= link_to comment.title, location_comment_path(@location, comment) %></li>
+      <li>
+      	<%= link_to comment.title, location_comment_path(@location, comment) %>
+				by <%= link_to @location.user.username, @location.user %>
+			</li>
     <% end #@location.comment.each %>
     </ul>
-  <% else %>
-    No sections
+	<% else %>
+    No comments yet
   <% end %>
+	
+	<%= link_to 'New comment', new_location_comment_path(@location) %>
 </div>
 
 <hr />
