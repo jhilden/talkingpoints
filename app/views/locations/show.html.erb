@@ -15,11 +15,14 @@
   <%=h @location.bluetooth_mac %>
 </p>
 
+<% if @location.lat or @location.lng %>
 <p>
   <strong>Coordinates (lat / lng):</strong>
   <%=h @location.lat %> / <%=h @location.lng %>
 </p>
+<% end %>
 
+<% if @location.street or @location.city or @location.state or @location.postal_code %>
 <p>
   <strong>Address:</strong><br />
   <%=h @location.street %><br />
@@ -27,10 +30,11 @@
 	<%=h @location.postal_code %><br />
 	<%=h @location.country %>
 </p>
+<% end %>
 
 <p>
   <strong>Phone:</strong>
-  <%=h @location.phone %>
+	<%=h @location.phone %>
 </p>
 
 <p>
@@ -67,6 +71,7 @@
       <li>
       	<%= link_to comment.title, location_comment_path(@location, comment) %>
 				by <%= link_to @location.user.username, @location.user %>
+				<span class="reduced">(on <%= comment.created_at.to_s(:short) %>)</span>
 			</li>
     <% end #@location.comment.each %>
     </ul>
@@ -78,6 +83,11 @@
 </div>
 
 <hr />
+
+<p>
+	[created <%= @location.created_at.to_s(:long) %>
+	<% if @location.created_at != @location.updated_at %> - edited <%= @location.updated_at %><% end %>]
+</p>
 
 
 <%= link_to 'Edit', edit_location_path(@location) %> |

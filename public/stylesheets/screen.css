@@ -2,7 +2,7 @@ html, body {
 	background-color: #fff;
 	color: #333;
 	padding: 0;
-	margin: 0:
+	margin: 0;
 }
 
 body, p, ol, ul, td {
@@ -108,4 +108,9 @@ a:hover { color: #fff; background-color:#000; }
 .notice {
 	background-color: #FFFFD3;
 	padding: .5em;
+}
+
+.reduced {
+	font-size: .7em;
+	color: gray;
 }
