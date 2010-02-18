@@ -1,9 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources (:locations, :member => {:get_nearby => :get, :get_address => :get}) do |location|
+  map.resources(:locations, :member => {:get_nearby => :get, :get_address => :get}) do |location|
     location.resources :sections
     location.resources :comments
   end
-  
   
   map.resource :user_session
   map.resource :account, :controller => :users
@@ -16,8 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :location_types
   
-  
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
