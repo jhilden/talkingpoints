@@ -7,7 +7,7 @@
   <%= stylesheet_link_tag 'screen' %>
 </head>
 <body>
-  <div id="wrap">
+  <div class="wrap" id="<%= controller.controller_name %>-<%= controller.action_name %>">
     <div id="head" class="clearfix">
       <h1><%= link_to "app.talking-points.org", root_path %></h1>
         
@@ -20,9 +20,33 @@
           <%= link_to "Login", login_path %>
         <% end %>
       </div>
-            
+			
+			<ul id="global_nav">
+				<li<% if controller.controller_name == 'info' and controller.action_name == 'about' %> class="active"<% end%>>
+					<%= link_to 'About', about_path %>
+				</li>
+				<li<% if controller.controller_name == "locations" or controller.controller_name == "sections" or controller.controller_name == "comments" %> class="active"<% end%>>
+					<%= link_to 'Locations', locations_path %>
+				</li>
+				<li<% if controller.controller_name == 'info' and controller.action_name == 'blog' %> class="active"<% end%>>
+					<%= link_to 'Blog', blog_path %>
+				</li>
+				<li<% if controller.controller_name == 'info' and controller.action_name == 'team' %> class="active"<% end%>>
+					<%= link_to 'Project Team', team_path %>
+				</li>
+				<li<% if controller.controller_name == 'info' and controller.action_name == 'inthenews' %> class="active"<% end%>>
+					<%= link_to 'In the News', inthenews_path %>
+				</li>
+				<li class="last<% if controller.controller_name == 'info' and controller.action_name == 'contact' %> active<% end%>">
+					<%= link_to 'Contact', contact_path %>
+				</li>
+		  </ul>
+    </div>
+      
+    <div id="content">
+    	<% if controller.controller_name == "locations" or controller.controller_name == "sections" or controller.controller_name == "comments" %>      
       <ul id="breadcrumb_nav">
-        <li><%= link_to "Locations", root_path %></li>
+        <li><%= link_to "Locations", locations_path %></li>
         <% if @location and @location.id %>
           <li>> <%= link_to @location.name, @location %></li>
         <% end %>
@@ -39,9 +63,8 @@
           <% end %>
         <% end %>
       </ul>
-    </div>
-      
-    <div id="content">
+      <% end %>
+			
       <% if flash.length > 0 %>
         <div class="notice"><%= flash[:notice] %></div>
       <% end %>

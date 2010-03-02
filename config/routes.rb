@@ -15,6 +15,14 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :location_types
   
+  map.with_options :controller => 'info' do |info|
+    info.about 'about', :action => 'about'
+    info.blog 'blog', :action => 'blog'
+    info.team 'team', :action => 'team'
+    info.inthenews 'inthenews', :action => 'inthenews'
+    info.contact 'contact', :action => 'contact'
+  end
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -48,7 +56,7 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => "locations"
+  map.root :controller => 'info', :action => 'about'
 
   # See how all your routes lay out with "rake routes"
 

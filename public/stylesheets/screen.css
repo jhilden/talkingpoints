@@ -25,7 +25,7 @@ textarea {
 * html .clearfix             { zoom: 1; } /* IE6 */
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
-#wrap {
+.wrap {
 	width: 960px;
 	margin-left: auto;
 	margin-right: auto;
@@ -80,15 +80,42 @@ a:hover { color: #fff; background-color:#000; }
 #head {
 	background-color: #f0f0f0;
 	border: 1px solid black;
-	padding: 1em;
 }
 #head h1 {
 	float: left;
-	margin-top: 0;
+	margin: .5em .5em 1em .5em;
 }
 #user_nav {
 	float: right;
+	margin: .5em;
 }
+#global_nav {
+	clear: both;
+	width: 958px;
+	padding: 0;
+}
+#global_nav li {
+	list-style-type: none;
+  float: left;
+	width: 158px;
+	border-collapse: collapse;
+	border: 1px solid black;
+	border-width: 1px 1px 0 0;
+}
+#global_nav li.active {
+  background-color: silver;
+	font-weight: bold;
+}
+#global_nav li.last {
+  width: 163px;
+  border-right-width: 0;
+}
+#global_nav li a {
+	display: block;
+	padding: .5em 0 .5em 0;
+	text-align: center;
+}
+
 
 #content {
 	border: 1px solid black;
@@ -96,10 +123,8 @@ a:hover { color: #fff; background-color:#000; }
 }
 
 #breadcrumb_nav {
-  float: left;
-	clear: both;
 	padding: 0;
-	margin-bottom: 0;
+	margin: 0;
 }
 #breadcrumb_nav li {
 	display: inline;
@@ -110,7 +135,21 @@ a:hover { color: #fff; background-color:#000; }
 	padding: .5em;
 }
 
+/* reusable generic classes */
+
 .reduced {
 	font-size: .7em;
 	color: gray;
+}
+.right {
+	float: right;
+}
+
+#content h1 {
+	margin-bottom: 2em;
+}
+
+.blogpost {
+	border-bottom: 1px solid silver;
+	margin-bottom: .5em;
 }
