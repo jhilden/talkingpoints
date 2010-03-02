@@ -1,0 +1,17 @@
+<h1>What's new on the Talking-Points Blog</h1>
+
+<% @feed.items.each do |item| %>
+  <div class="blogpost">
+  	<h3><%= link_to item.title, item.link %></h3>
+		<p>
+			published <%= item.pubDate.to_datetime.to_s(:long) %>
+			by <%= item.dc_creator %>
+		</p>
+		<p>
+			<%= simple_format item.description + ' ' + link_to('Read the whole blog post', item.link) %>
+			
+		</p>
+  </div>
+<% end %>
+
+<p><%= link_to 'Go directly to the blog at blog.talking-point.org', 'http://talking-points.org' %></p>
