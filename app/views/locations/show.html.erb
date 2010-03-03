@@ -84,6 +84,12 @@
 
 <hr />
 
+<% if @map %>
+	<%= @map.to_html %>
+	<%= @map.div(:width => "100%", :height => 400) %>
+	<hr />
+<% end %>
+
 <p>
 	[created <%= @location.created_at.to_s(:long) %>
 	<% if @location.created_at != @location.updated_at %> - edited <%= @location.updated_at %><% end %>]

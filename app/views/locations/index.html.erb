@@ -1,4 +1,4 @@
-<h1>Listing locations</h1>
+<h1>Listing locations <%= "nearby "+@location.name if controller.controller_name == "locations" and controller.action_name == "get_nearby" %></h1>
 
 <table>
   <tr>
@@ -31,5 +31,9 @@
 </table>
 
 <br />
+<% if @map %>
+	<%= @map.to_html %>
+	<%= @map.div(:width => "100%", :height => 400) %>
+<% end %>
 
 <%= link_to 'New location', new_location_path %>
