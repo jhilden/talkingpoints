@@ -15,6 +15,10 @@
     <%= f.label :location_type_id %><br />
     <%= collection_select :location, :location_type_id, @location_types, :id, :name %>
   </p>
+  <p>
+    <%= f.label :location_parent_id %><br/>
+    <%= collection_select :location_id, :location_id, @locations, :id, :name %>
+  </p>
 	<p>
   <p>
     <%= f.label :bluetooth_mac %><br />

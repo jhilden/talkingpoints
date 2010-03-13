@@ -166,6 +166,7 @@ class LocationsController < ApplicationController
     @location = Location.new
     @location.location_type_id = 1
     @location_types = LocationType.all
+    @locations = Location.all
     
     respond_to do |format|
       format.html # new.html.erb
