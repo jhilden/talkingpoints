@@ -7,3 +7,5 @@ db/schema.rb
 *.rb~
 *.yml~
 *.erb~
+*.DS_Store
+.DS_Store
