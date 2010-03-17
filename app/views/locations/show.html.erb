@@ -81,6 +81,14 @@
 	
 	<%= link_to 'New comment', new_location_comment_path(@location) %>
 </div>
+<div>
+  <strong>Containing Location...</strong>
+  <% unless @parent_location == nil %>
+    <%=h @parent_location.url %>
+  <% else %>
+    No Parent
+  <% end %>
+</div>
 
 <hr />
 

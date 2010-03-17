@@ -42,7 +42,14 @@ class ApplicationController < ActionController::Base
         return false
       end
     end
-    
+    def require_admin
+      unless curent_user == "admin"
+        store_location
+        flash[:notice] = "You must have admin privileges to do this"
+        redirect_to new_user_session_url
+        return false
+      end
+    end
     def store_location
       session[:return_to] = request.request_uri
     end

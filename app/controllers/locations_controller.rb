@@ -68,6 +68,10 @@ class LocationsController < ApplicationController
   # GET /locations/1
   def show
     @location = Location.find_by_id(params[:id], :include => [:sections, :comments])
+    @child_locations = Location.find(:all, :conditions => ["parent_id = ?", @location.id])
+    if(@location.parent_id)
+      @parent_location = Location.find_by_id(@location.parent_id)
+    end
 
     respond_to do |format|
       if @location
@@ -100,7 +104,7 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if @location
         format.html {
-          if @location.lat and @location.lng
+          if @location.lat and @location.lgn
             @map = GMap.new("gmap")
             @map.control_init(:large_map => true, :map_type => true)
             @map.center_zoom_init([@location.lat, @location.lng], 14)
@@ -121,8 +125,8 @@ class LocationsController < ApplicationController
         format.json { head :status => :not_found }
       end
     end
-  end
-  
+  end  
+
   # GET /locations/1/get_nearby
   def get_nearby
     @location = Location.find_by_id(params[:id])
@@ -178,6 +182,7 @@ class LocationsController < ApplicationController
   def edit
     @location = Location.find(params[:id])
     @location_types = LocationType.all
+    @locations = Location.all
   end
 
   # POST /locations
