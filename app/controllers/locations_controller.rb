@@ -104,7 +104,7 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if @location
         format.html {
-          if @location.lat and @location.lgn
+          if @location.lat and @location.lng
             @map = GMap.new("gmap")
             @map.control_init(:large_map => true, :map_type => true)
             @map.center_zoom_init([@location.lat, @location.lng], 14)
@@ -130,8 +130,13 @@ class LocationsController < ApplicationController
   # GET /locations/1/get_nearby
   def get_nearby
     @location = Location.find_by_id(params[:id])
-    @locations = Location.find(:all, :origin => @location, :within => 1, :conditions => ["id != ?", @location.id])
-
+    @locations = Location.find(:all, :origin => @location, :within => 1, :order => "distance asc", :conditions => ["id != ?", @location.id])
+    
+    # this is a bugfix, since geokit doesn't seem to set the distance attribute as it is supposed to be
+    @locations.each do |loc|
+      loc.distance = loc.distance_from(@location) if loc.distance == nil
+    end
+    
     respond_to do |format|
       if @location
         format.html  {
@@ -155,7 +160,7 @@ class LocationsController < ApplicationController
           
           render :template => 'locations/index'
         }
-        format.xml   { render :xml => format_locations_output(@locations) }
+        format.xml   { render :xml =>  format_locations_output(@locations) }
         format.json  { render :json => format_locations_output(@locations) }
       else
         format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => :not_found }
