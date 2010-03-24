@@ -10,6 +10,24 @@
   <%=h @location.location_type.name %>
 </p>
 
+<% if @location.parent_location %>
+<p>
+  <strong>Belongs to:</strong>
+  <%= link_to @location.parent_location.name, @location.parent_location %>
+</p>
+<% end %>
+
+<% if @location.child_locations.size > 0 %>
+<p>
+  <strong>Contains:</strong>
+	<ul>
+	<% @location.child_locations.each do |location| %>
+    <li><%= link_to location.name, location %></li>
+  <% end %>
+	</ul>
+</p>
+<% end %>
+
 <p>
   <strong>Bluetooth mac:</strong>
   <%=h @location.bluetooth_mac %>
@@ -80,14 +98,6 @@
   <% end %>
 	
 	<%= link_to 'New comment', new_location_comment_path(@location) %>
-</div>
-<div>
-  <strong>Containing Location...</strong>
-  <% unless @parent_location == nil %>
-    <%=h @parent_location.url %>
-  <% else %>
-    No Parent
-  <% end %>
 </div>
 
 <hr />

@@ -67,12 +67,8 @@ class LocationsController < ApplicationController
   
   # GET /locations/1
   def show
-    @location = Location.find_by_id(params[:id], :include => [:sections, :comments])
-    @child_locations = Location.find(:all, :conditions => ["parent_id = ?", @location.id])
-    if(@location.parent_id)
-      @parent_location = Location.find_by_id(@location.parent_id)
-    end
-
+    @location = Location.find_by_id(params[:id], :include => [:sections, :comments, :parent_location, :child_locations])
+    
     respond_to do |format|
       if @location
         format.html {
@@ -99,7 +95,7 @@ class LocationsController < ApplicationController
   
   # GET /locations/show_by_bluetooth_mac/1234567890
   def show_by_bluetooth_mac
-    @location = Location.find(:first, :conditions => ["bluetooth_mac = ?", params[:id]], :include => [:sections, :comments])
+    @location = Location.find(:first, :conditions => ["bluetooth_mac = ?", params[:id]], :include => [:sections, :comments, :parent_location, :child_locations])
     
     respond_to do |format|
       if @location
