@@ -1,9 +1,0 @@
-config/database.yml
-log/*.log
-db/schema.rb
-.project
-.loadpath
-.tmp_*
-*.rb~
-*.yml~
-*.erb~

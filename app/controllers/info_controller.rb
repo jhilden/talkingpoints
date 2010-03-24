@@ -5,7 +5,7 @@ class InfoController < ApplicationController
   end
   
   def blog 
-    @feed = RSS::Parser.parse(open('http://talking-points.org/feed').read, false)
+    @feed = RSS::Parser.parse(open('http://blog.talking-points.org/feed').read, false)
   end
   
   def team
