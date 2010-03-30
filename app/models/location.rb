@@ -11,4 +11,12 @@ class Location < ActiveRecord::Base
   
   validates_presence_of :name, :location_type
   validates_associated :user, :location_type
+  
+  def address_empty?
+    if !self.street.blank? or !self.city.blank? or !self.state.blank? or !self.postal_code.blank?
+      return false
+    else
+      return true
+    end
+  end
 end

@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources(:locations, :member => {:get_nearby => :get, :get_address => :get}) do |location|
+  map.resources(:locations, :member => {:get_nearby => :get, :geocode => :get}) do |location|
     location.resources :sections
     location.resources :comments
   end

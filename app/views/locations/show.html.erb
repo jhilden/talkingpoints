@@ -33,20 +33,23 @@
   <%=h @location.bluetooth_mac %>
 </p>
 
-<% if @location.lat or @location.lng %>
 <p>
   <strong>Coordinates (lat / lng):</strong>
-  <%=h @location.lat %> / <%=h @location.lng %>
+  <% if !@location.lat.blank? or !@location.lng.blank? %>
+    <%=h @location.lat %> / <%=h @location.lng %>
+  <% else %>
+    no coordinates yet
+    <%= link_to("Geocode using address", geocode_location_path(@location)) unless @location.address_empty? %>
+  <% end %>
 </p>
-<% end %>
 
-<% if @location.street or @location.city or @location.state or @location.postal_code %>
+<% if !@location.address_empty? %>
 <p>
   <strong>Address:</strong><br />
   <%=h @location.street %><br />
-	<%=h @location.city %>, <%=h @location.state %><br />
-	<%=h @location.postal_code %><br />
-	<%=h @location.country %>
+  <%=h @location.city %>, <%=h @location.state %><br />
+  <%=h @location.postal_code %><br />
+  <%=h @location.country %>
 </p>
 <% end %>
 

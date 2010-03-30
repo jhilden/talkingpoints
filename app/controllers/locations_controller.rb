@@ -1,3 +1,5 @@
+include Geokit::Geocoders
+
 class LocationsController < ApplicationController
   before_filter :require_user, :only => [:new, :edit, :create, :update, :destroy]
   
@@ -72,7 +74,7 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if @location
         format.html {
-          if @location.lat and @location.lng
+          if !@location.lat.blank? and !@location.lng.blank?
             @map = GMap.new("gmap")
             @map.control_init(:large_map => true, :map_type => true)
             @map.center_zoom_init([@location.lat, @location.lng], 14)
@@ -226,6 +228,31 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(locations_url) }
+      format.xml  { head :ok }
+    end
+  end
+  
+  # GET /location/1/geocode
+  # TODO: this should probably not use a HTTP GET request and it might also make more sense in a different controller
+  def geocode
+    @location = Location.find(params[:id])
+    if @location.lat.blank? or @location.lng.blank?
+      res = MultiGeocoder.geocode(@location.street + ', ' + @location.city + ', ' + @location.state + ', ' + @location.country)
+      
+      if !res.lng.blank? or !res.lat.blank?
+        @location.lat = res.lat
+        @location.lng = res.lng
+        @location.save
+        flash[:notice] = 'Geocoding results: ' + res.lat.to_s + ', ' + res.lng.to_s
+        
+      else
+        flash[:notice] = 'Geocoding failed'
+      end
+      
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to(@location) }
       format.xml  { head :ok }
     end
   end
