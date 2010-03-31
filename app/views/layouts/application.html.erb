@@ -6,8 +6,13 @@
   <title><%= request.host %> :: <%= controller.controller_name %>.<%= controller.action_name %></title>
   <%= stylesheet_link_tag 'screen' %>
 	
-	<%= GMap.header %>
-	<%= javascript_include_tag 'markerGroup' %>
+	<script type='text/javascript'>
+	  window._auth_token_name = "<%= request_forgery_protection_token %>";
+	  window._auth_token =      "<%= form_authenticity_token %>";
+	</script>
+	
+	<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAACYmNKKpiTg0l7RVm77QbPRTrvHe6Vt5Tqs0FzuZEaX-q0oWxURT47HH0p9LX-CmXcg7LJkuThY9IHw"></script>
+	<%= javascript_include_tag 'application' %>
 </head>
 <body>
   <div class="wrap" id="<%= controller.controller_name %>-<%= controller.action_name %>">

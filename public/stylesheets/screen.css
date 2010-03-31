@@ -153,3 +153,19 @@ a:hover { color: #fff; background-color:#000; }
 	border-bottom: 1px solid silver;
 	margin-bottom: .5em;
 }
+
+
+#map_canvas {
+	height: 400px;
+}
+.specify_coordinates_mode {
+	border: 2px solid red;
+}
+#specify_coordinates_message {
+  background-color: yellow;
+	color: red;
+	font-weight: bold;
+	text-align: center;
+	border: 2px solid red;
+}
+

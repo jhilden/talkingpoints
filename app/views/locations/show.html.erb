@@ -1,3 +1,7 @@
+<script type="text/javascript">
+	location_id = <%= @location.id %>;
+</script>
+
 <h1><%=h @location.name %></h1>
 
 <p>
@@ -33,7 +37,7 @@
   <%=h @location.bluetooth_mac %>
 </p>
 
-<p>
+<p id="coordinates">
   <strong>Coordinates (lat / lng):</strong>
   <% if !@location.lat.blank? or !@location.lng.blank? %>
     <%=h @location.lat %> / <%=h @location.lng %>
@@ -105,11 +109,30 @@
 
 <hr />
 
-<% if @map %>
-	<%= @map.to_html %>
-	<%= @map.div(:width => "100%", :height => 400) %>
-	<hr />
-<% end %>
+<div id="map_canvas"></div>
+<script type="text/javascript">
+	google.load("maps", "2", {callback: mapLoaded});
+	
+	function mapLoaded() {
+	  if (GBrowserIsCompatible()) {
+			var location_coordinates = new GLatLng(<%= @location.lat %>, <%= @location.lng %>);
+			
+	    map = new GMap2(document.getElementById("map_canvas"));
+	    map.setCenter(location_coordinates, 14);
+	    map.addControl(new GSmallMapControl());
+	    map.addControl(new GMapTypeControl());
+	    
+	    location_marker = new GMarker(
+			  location_coordinates,
+				{title: "<%= @location.name %>", draggable: true});
+	    map.addOverlay(location_marker);
+			location_marker.disableDragging();
+			location_marker.bindInfoWindowHtml("<strong><%= @location.name %></strong><p><%= @location.description %></p>");
+	    
+			specifyCoordinates(location_coordinates);
+		}
+	}
+</script>
 
 <p>
 	[created <%= @location.created_at.to_s(:long) %>

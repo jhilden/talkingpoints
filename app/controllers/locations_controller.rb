@@ -73,20 +73,9 @@ class LocationsController < ApplicationController
     
     respond_to do |format|
       if @location
-        format.html {
-          if !@location.lat.blank? and !@location.lng.blank?
-            @map = GMap.new("gmap")
-            @map.control_init(:large_map => true, :map_type => true)
-            @map.center_zoom_init([@location.lat, @location.lng], 14)
-            @map.overlay_init(GMarker.new(
-                [@location.lat, @location.lng],
-                :title => @location.name,
-                :info_window => "<strong>"+@location.name+"</strong><p>"+@location.description+"</p>"
-            ))
-          end
-        } # show.html.erb
-        format.xml   { render :xml  => format_location_output(@location) }
-        format.json  { render :json => format_location_output(@location) }
+        format.html # show.html.erb
+        format.xml  { render :xml  => format_location_output(@location) }
+        format.json { render :json => format_location_output(@location) }
       else
         format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => :not_found }
         format.xml  { head :status => :not_found }
@@ -101,20 +90,7 @@ class LocationsController < ApplicationController
     
     respond_to do |format|
       if @location
-        format.html {
-          if @location.lat and @location.lng
-            @map = GMap.new("gmap")
-            @map.control_init(:large_map => true, :map_type => true)
-            @map.center_zoom_init([@location.lat, @location.lng], 14)
-            @map.overlay_init(GMarker.new(
-                [@location.lat, @location.lng],
-                :title => @location.name,
-                :info_window => "<strong>"+@location.name+"</strong><p>"+@location.description+"</p>"
-            ))
-          end
-          
-          render :template => "locations/show"
-        }
+        format.html { render :template => "locations/show" }
         format.xml  { render :xml  => format_location_output(@location) }
         format.json { render :json => format_location_output(@location) }
       else
@@ -233,7 +209,7 @@ class LocationsController < ApplicationController
   end
   
   # GET /location/1/geocode
-  # TODO: this should probably not use a HTTP GET request and it might also make more sense in a different controller
+  # TODO: this should probably not use a HTTP GET request and it might also make more sense to move it to a different controller or the model
   def geocode
     @location = Location.find(params[:id])
     if @location.lat.blank? or @location.lng.blank?
