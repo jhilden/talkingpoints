@@ -124,10 +124,10 @@
 	    
 	    location_marker = new GMarker(
 			  location_coordinates,
-				{title: "<%= @location.name %>", draggable: true});
+				{title: "<%= escape_javascript @location.name %>", draggable: true});
 	    map.addOverlay(location_marker);
 			location_marker.disableDragging();
-			location_marker.bindInfoWindowHtml("<strong><%= @location.name %></strong><p><%= @location.description %></p>");
+			location_marker.bindInfoWindowHtml("<strong><%= escape_javascript @location.name %></strong><p><%= escape_javascript @location.description %></p>");
 	    
 			specifyCoordinates(location_coordinates);
 		}
