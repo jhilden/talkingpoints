@@ -276,17 +276,16 @@ class LocationsController < ApplicationController
     end
   
     def format_locations_output(locations)
-      output = Hash.new
-      #markers = Array.new
+      output = Array.new
       locations.each do |loc|
-        output['location-'+loc.id.to_s] = {
+        output << {
           'tpid'          => loc.id,
+          'name'          => loc.name,
           'lat'           => loc.lat,
           'lng'           => loc.lng,
           'bluetooth_mac' => loc.bluetooth_mac,
           'distance'      => loc.distance.to_f * 1000
         }
-        #markers << GMarker.new([loc.lat, loc.lng], :info_window => loc.name)
       end
       return output
     end
