@@ -103,7 +103,11 @@ class LocationsController < ApplicationController
 
   # GET /locations/1/get_nearby
   def get_nearby
-    @location = Location.find_by_id(params[:id])
+    if params[:id].length == 12
+      @location = Location.find(:first, :conditions =>["bluetooth_mac = ?", params[:id]])
+    else
+      @location = Location.find_by_id(params[:id])
+    end
     @locations = Location.find(:all, :origin => @location, :within => 1, :order => "distance asc", :conditions => ["id != ?", @location.id])
     
     # this is a bugfix, since geokit doesn't seem to set the distance attribute as it is supposed to be
