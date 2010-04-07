@@ -19,4 +19,17 @@ class Location < ActiveRecord::Base
       return true
     end
   end
+  
+  # automatically detects which id (TPID, bluetooth MAC, ...) was passed in and finds the corresponding location
+  def self.find_by_automatic(id, *args)
+    if id.match(/^([0-9a-f]{2}([:]|$)){6}$/)
+      @location = Location.find(:first,
+        :conditions => ["bluetooth_mac = ? OR bluetooth_mac = ?", id, id.tr(':', '')], *args)
+       
+    else
+      @location = Location.find_by_id(id, *args)
+    end
+    
+    return @location
+  end
 end

@@ -31,9 +31,29 @@
 </table>
 
 <br />
-<% if @map %>
-	<%= @map.to_html %>
-	<%= @map.div(:width => "100%", :height => 400) %>
-<% end %>
+<div id="map_canvas"></div>
+<script type="text/javascript">
+  google.load("maps", "2", {callback: mapLoaded});
+  
+  function mapLoaded() {
+    if (GBrowserIsCompatible()) {
+      var location_coordinates = new GLatLng(<%= @locations[0].lat %>, <%= @locations[0].lng %>);
+      
+      map = new GMap2(document.getElementById("map_canvas"));
+      map.setCenter(new GLatLng(<%= @locations[0].lat %>, <%= @locations[0].lng %>), 14);
+      map.addControl(new GSmallMapControl());
+      map.addControl(new GMapTypeControl());
+      
+      <% @locations.each do |location| %>
+	      var location_marker_<%= location.id %> = new GMarker(
+	        new GLatLng(<%= location.lat %>, <%= location.lng %>),
+	        {title: "<%= escape_javascript location.name %>"}
+				);
+	      map.addOverlay(location_marker_<%= location.id %>);
+	      location_marker_<%= location.id %>.bindInfoWindowHtml("<strong><%= escape_javascript location.name %></strong><p><%= escape_javascript location.description %></p>");
+      <% end %>
+    }
+  }
+</script>
 
 <%= link_to 'New location', new_location_path %>

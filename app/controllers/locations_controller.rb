@@ -8,31 +8,13 @@ class LocationsController < ApplicationController
     @locations = Location.all
 
     respond_to do |format|
-      format.html {
-        center = [42.27, -83.73]
-        
-        location_markers = Array.new
-        @locations.each do |location|
-          if location.lat and location.lng
-            location_markers << GMarker.new(
-              [location.lat, location.lng],
-              :title => location.name,
-              :info_window => "<strong>"+location.name+"</strong><p>"+location.description+"</p>"
-            )
-          end
-        end
-        
-        @map = GMap.new("gmap")
-        @map.control_init(:large_map => true, :map_type => true)
-        @map.center_zoom_init(center, 14)
-        @map.overlay_global_init(GMarkerGroup.new(true, location_markers), "locations")
-      } # index.html.erb
+      format.html # index.html.erb
       format.xml  { render :xml  => format_locations_output(@locations) }
       format.json { render :json => format_locations_output(@locations) }
     end
   end
   
-  # GET /locations/by_coordinates
+  # GET /locations/by_coordinates/12,345;67,890
   def by_coordinates
     coordinates = params[:id].split(';')
     coordinates[0].gsub!(',', '.').to_f
@@ -41,27 +23,7 @@ class LocationsController < ApplicationController
     @locations = Location.find(:all, :origin => coordinates, :within => 1)
     
     respond_to do |format|
-      format.html {
-        center = [@locations[0].lat, @locations[0].lng]
-        
-        location_markers = Array.new
-        @locations.each do |location|
-          if location.lat and location.lng
-            location_markers << GMarker.new(
-              [location.lat, location.lng],
-              :title => location.name,
-              :info_window => "<strong>"+location.name+"</strong><p>"+location.description+"</p>"
-            )
-          end
-        end
-        
-        @map = GMap.new("gmap")
-        @map.control_init(:large_map => true, :map_type => true)
-        @map.center_zoom_init(center, 14)
-        @map.overlay_global_init(GMarkerGroup.new(true, location_markers), "locations")
-        
-        render :template => 'locations/index'
-      } # index.html.erb
+      format.html  { render :template => 'locations/index' }
       format.xml   { render :xml  => format_locations_output(@locations) }
       format.json  { render :json => format_locations_output(@locations) }
     end
@@ -69,24 +31,7 @@ class LocationsController < ApplicationController
   
   # GET /locations/1
   def show
-    @location = Location.find_by_id(params[:id], :include => [:sections, :comments, :parent_location, :child_locations])
-    
-    respond_to do |format|
-      if @location
-        format.html # show.html.erb
-        format.xml  { render :xml  => format_location_output(@location) }
-        format.json { render :json => format_location_output(@location) }
-      else
-        format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => :not_found }
-        format.xml  { head :status => :not_found }
-        format.json { head :status => :not_found }
-      end
-    end
-  end
-  
-  # GET /locations/show_by_bluetooth_mac/1234567890
-  def show_by_bluetooth_mac
-    @location = Location.find(:first, :conditions => ["bluetooth_mac = ?", params[:id]], :include => [:sections, :comments, :parent_location, :child_locations])
+    @location = Location.find_by_automatic(params[:id], {:include => [:sections, :comments, :parent_location, :child_locations]})
     
     respond_to do |format|
       if @location
@@ -99,15 +44,12 @@ class LocationsController < ApplicationController
         format.json { head :status => :not_found }
       end
     end
-  end  
+  end
+  alias show_by_bluetooth_mac show
 
   # GET /locations/1/get_nearby
   def get_nearby
-    if params[:id].length == 12
-      @location = Location.find(:first, :conditions =>["bluetooth_mac = ?", params[:id]])
-    else
-      @location = Location.find_by_id(params[:id])
-    end
+    @location = Location.find_by_automatic(params[:id])
     @locations = Location.find(:all, :origin => @location, :within => 1, :order => "distance asc", :conditions => ["id != ?", @location.id])
     
     # this is a bugfix, since geokit doesn't seem to set the distance attribute as it is supposed to be
@@ -117,27 +59,7 @@ class LocationsController < ApplicationController
     
     respond_to do |format|
       if @location
-        format.html  {
-          center = [@locations[0].lat, @locations[0].lng]
-          
-          location_markers = Array.new
-          @locations.each do |location|
-            if location.lat and location.lng
-              location_markers << GMarker.new(
-                [location.lat, location.lng],
-                :title => location.name,
-                :info_window => "<strong>"+location.name+"</strong><p>"+location.description+"</p>"
-              )
-            end
-          end
-          
-          @map = GMap.new("gmap")
-          @map.control_init(:large_map => true, :map_type => true)
-          @map.center_zoom_init(center, 14)
-          @map.overlay_global_init(GMarkerGroup.new(true, location_markers), "locations")
-          
-          render :template => 'locations/index'
-        }
+        format.html  { render :template => 'locations/index' }
         format.xml   { render :xml =>  format_locations_output(@locations) }
         format.json  { render :json => format_locations_output(@locations) }
       else
