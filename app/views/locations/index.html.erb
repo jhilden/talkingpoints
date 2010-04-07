@@ -45,13 +45,15 @@
       map.addControl(new GMapTypeControl());
       
       <% @locations.each do |location| %>
-	      var location_marker_<%= location.id %> = new GMarker(
-	        new GLatLng(<%= location.lat %>, <%= location.lng %>),
-	        {title: "<%= escape_javascript location.name %>"}
-				);
-	      map.addOverlay(location_marker_<%= location.id %>);
-	      location_marker_<%= location.id %>.bindInfoWindowHtml("<strong><%= escape_javascript location.name %></strong><p><%= escape_javascript location.description %></p>");
-      <% end %>
+			  <% if !location.lat.blank? and !location.lng.blank? %>
+		      var location_marker_<%= location.id %> = new GMarker(
+		        new GLatLng(<%= location.lat %>, <%= location.lng %>),
+		        {title: "<%= escape_javascript location.name %>"}
+					);
+		      map.addOverlay(location_marker_<%= location.id %>);
+		      location_marker_<%= location.id %>.bindInfoWindowHtml("<strong><%= escape_javascript location.name %></strong><p><%= escape_javascript location.description %></p>");
+        <% end %>
+			<% end %>
     }
   }
 </script>

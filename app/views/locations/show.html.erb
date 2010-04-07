@@ -115,21 +115,28 @@
 	
 	function mapLoaded() {
 	  if (GBrowserIsCompatible()) {
-			var location_coordinates = new GLatLng(<%= @location.lat %>, <%= @location.lng %>);
-			
 	    map = new GMap2(document.getElementById("map_canvas"));
-	    map.setCenter(location_coordinates, 14);
 	    map.addControl(new GSmallMapControl());
 	    map.addControl(new GMapTypeControl());
-	    
-	    location_marker = new GMarker(
-			  location_coordinates,
-				{title: "<%= escape_javascript @location.name %>", draggable: true});
-	    map.addOverlay(location_marker);
-			location_marker.disableDragging();
-			location_marker.bindInfoWindowHtml("<strong><%= escape_javascript @location.name %></strong><p><%= escape_javascript @location.description %></p>");
-	    
-			specifyCoordinates(location_coordinates);
+			
+			<% if !@location.lat.blank? and !@location.lng.blank? %>
+				var location_coordinates = new GLatLng(<%= @location.lat %>, <%= @location.lng %>);
+		    map.setCenter(location_coordinates, 14);
+				
+		    location_marker = new GMarker(
+				  location_coordinates,
+					{title: "<%= escape_javascript @location.name %>", draggable: true});
+		    map.addOverlay(location_marker);
+				location_marker.disableDragging();
+				location_marker.bindInfoWindowHtml("<strong><%= escape_javascript @location.name %></strong><p><%= escape_javascript @location.description %></p>");
+				
+				specifyCoordinates(location_coordinates);
+				
+			<% else %>
+			  map.setCenter(new GLatLng(42.27535, -83.730839), 14);
+				
+				// TODO: add a mode for specifyCoordinates() where no coordinates are set yet
+			<% end %>
 		}
 	}
 </script>
