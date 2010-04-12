@@ -50,15 +50,17 @@ class LocationsController < ApplicationController
   # GET /locations/1/get_nearby
   def get_nearby
     @location = Location.find_by_automatic(params[:id])
-    @locations = Location.find(:all, :origin => @location, :within => 1, :order => "distance asc", :conditions => ["id != ?", @location.id])
     
-    # this is a bugfix, since geokit doesn't seem to set the distance attribute as it is supposed to be
-    @locations.each do |loc|
-      loc.distance = loc.distance_from(@location) if loc.distance == nil
-    end
     
     respond_to do |format|
       if @location
+        options_hash = {:origin => @location, :conditions => ["id != ?", @location.id]}
+        options_hash[:within] = (params[:within] ? params[:within] : 1)
+        options_hash[:units] = :kms  if params[:units] == 'kms'
+        
+        @locations = Location.find(:all, options_hash)
+        
+        
         format.html  { render :template => 'locations/index' }
         format.xml   { render :xml =>  format_locations_output(@locations) }
         format.json  { render :json => format_locations_output(@locations) }
@@ -206,7 +208,7 @@ class LocationsController < ApplicationController
           'lat'           => loc.lat,
           'lng'           => loc.lng,
           'bluetooth_mac' => loc.bluetooth_mac,
-          'distance'      => loc.distance.to_f * 1000
+          'distance'      => loc.distance.to_f
         }
       end
       return output

@@ -37,13 +37,12 @@ pre {
   font-size: 11px;
 }
 
-a { color: #000; }
-a:visited { color: #666; }
-a:hover { color: #fff; background-color:#000; }
+a { color: #3383BB; }
+a:hover { color: #599FCF; }
 
 .fieldWithErrors {
   padding: 2px;
-  background-color: red;
+  background-color: relightblued;
   display: table;
 }
 
@@ -157,6 +156,7 @@ a:hover { color: #fff; background-color:#000; }
 
 #map_canvas {
 	height: 400px;
+	margin-bottom: 1em;
 }
 .specify_coordinates_mode {
 	border: 2px solid red;

@@ -130,13 +130,13 @@
 				location_marker.disableDragging();
 				location_marker.bindInfoWindowHtml("<strong><%= escape_javascript @location.name %></strong><p><%= escape_javascript @location.description %></p>");
 				
-				specifyCoordinates(location_coordinates);
-				
 			<% else %>
+			  var location_coordinates = null;
 			  map.setCenter(new GLatLng(42.27535, -83.730839), 14);
 				
-				// TODO: add a mode for specifyCoordinates() where no coordinates are set yet
 			<% end %>
+			
+			<% if current_user %>specifyCoordinates(location_coordinates);<% end %>
 		}
 	}
 </script>
@@ -147,5 +147,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_location_path(@location) %> |
-<%= link_to 'Back', locations_path %>
+<%= link_to '< Back to locations', locations_path %>
+<%= link_to('Edit', edit_location_path(@location), :class => "edit") + " |"   if current_user %>

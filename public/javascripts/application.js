@@ -2,6 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 google.load("jquery", "1.4.2");
+google.load("jqueryui", "1.8.0");
 
 google.setOnLoadCallback(function() {
 	// extends jQuery to make a non-AJAX POST request
@@ -18,6 +19,13 @@ google.setOnLoadCallback(function() {
 			$("#doPostForm").submit();
 	  }
 	});
+	
+	$(function() {
+		$("a.button, input:submit").button();
+		$("a.delete").button({icons: {primary: 'ui-icon-trash'}, text: false});
+		$("a.edit").button({icons: {primary: 'ui-icon-pencil'}, text: false});
+		$("a.create").button({icons: {primary: 'ui-icon-plus'}});
+	});
 });
 
 // all the code related to specifying coordinates using Google Maps
@@ -26,6 +34,16 @@ function specifyCoordinates(latlng) {
   link.bind("click", function() {
 		$('#map_canvans').focus();
     map.setMapType(G_HYBRID_MAP);
+		
+		if (latlng == null) {
+			latlng = new GLatLng(42.27535, -83.730839);
+	    location_marker = new GMarker(
+	      latlng,
+	      {title: "new coordinates", draggable: true});
+	    map.addOverlay(location_marker);
+	    location_marker.openInfoWindowHtml("Drag this marker to the position of the location");
+	  }
+		
 		map.setCenter(latlng, 19);
 		
 		location_marker.enableDragging();

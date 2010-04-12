@@ -8,18 +8,20 @@
   <%=h @user.email %>
 </p>
 
+<!--
 <p>
 	<strong>Comments</strong>
 	<% if @user.comments.size > 0 %>
 		<ul>
 			<% @user.comments.each do |comment| %>
-			  <li><%= link_to comment.title, location_commment_path(@location, comment) %>
-				on <%= link_to @location.name, @location %></li>
+			  <li>< %= link_to comment.title, location_commment_path(comment.location, comment) %>
+				on <%= link_to comment.location.name, comment.location %></li>
 			<% end %>
 		</ul>
 	<% else %>
 	  <p>The user hasn't made any comments yet</p>
 	<% end %>
 </p>
+-->
 
 <%= link_to 'Edit', edit_account_path %>
