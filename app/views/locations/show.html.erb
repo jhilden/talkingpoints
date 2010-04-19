@@ -11,7 +11,7 @@
 
 <p>
   <strong>Location type:</strong>
-  <%=h @location.location_type.name %>
+  <%=link_to h(@location.location_type.name), @location.location_type %>
 </p>
 
 <% if @location.parent_location %>

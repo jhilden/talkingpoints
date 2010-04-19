@@ -1,10 +1,10 @@
 class LocationTypesController < ApplicationController
-  before_filter :require_user, :except => [:index, :show]
+  before_filter :require_admin, :except => [:index, :show]
   
   # GET /location_types
   # GET /location_types.xml
   def index
-    @location_types = LocationType.all
+    @location_types = LocationType.all(:include => [:locations])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,9 +16,10 @@ class LocationTypesController < ApplicationController
   # GET /location_types/1.xml
   def show
     @location_type = LocationType.find(params[:id])
+    @locations = @location_type.locations
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render :template => 'locations/index' }
       format.xml  { render :xml => @location_type }
     end
   end

@@ -1,20 +1,15 @@
 <h1>Listing location_types</h1>
 
 <table>
-  <tr>
-    <th>Name</th>
-  </tr>
-
 <% @location_types.each do |location_type| %>
   <tr>
-    <td><%=h location_type.name %></td>
-    <td><%= link_to 'Show', location_type %></td>
-    <td><%= link_to 'Edit', edit_location_type_path(location_type) %></td>
-    <td><%= link_to 'Destroy', location_type, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to location_type.name, location_type %> (<%= location_type.locations.count %>)</td>
+    <td><%= link_to 'Edit', edit_location_type_path(location_type), :class => 'edit'  if current_user_is_admin? %></td>
+    <td><%= link_to 'Destroy', location_type, :confirm => 'Are you sure?', :method => :delete, :class => 'delete'  if current_user_is_admin? %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New location_type', new_location_type_path %>
+<%= link_to 'New location_type', new_location_type_path, :class => "create"   if current_user_is_admin? %>
