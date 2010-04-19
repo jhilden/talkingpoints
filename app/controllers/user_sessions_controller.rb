@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      flash[:notice] = "Login successful!"
+      flash[:notice] = 'Login successful! <script type="text/javascript">_gaq.push(["_setCustomVar", 1, "user status", "logged in", 2]);</script>'
       redirect_back_or_here account_url
     else
       render :action => :new

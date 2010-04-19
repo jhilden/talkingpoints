@@ -32,6 +32,7 @@ google.setOnLoadCallback(function() {
 function specifyCoordinates(latlng) {
 	var link = $('<a id="specify-coordinates-link" href="#map_canvas">Specify location coordinates using the map</a>');
   link.bind("click", function() {
+		_gaq.push(['_trackEvent', 'location', 'enter specify coordinates mode', location_id]);
 		$('#map_canvans').focus();
     map.setMapType(G_HYBRID_MAP);
 		
@@ -63,7 +64,8 @@ function specifyCoordinates(latlng) {
         return false;
       })
       $("#save-coordinates-link").live("click", function() {
-				// instead of building the form on the fly on save, we could also put it into the infoWindow right away
+				_gaq.push(['_trackEvent', 'location', 'specify coordinates', location_id]);
+				// TODO: instead of building the form on the fly on save, we could also put it into the infoWindow right away
         $.doPost("/locations/" + location_id, {
           _method: "put",
           commit: "Update",
