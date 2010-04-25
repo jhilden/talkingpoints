@@ -174,13 +174,39 @@ class LocationsController < ApplicationController
       Location.content_columns.each do |column|
         output[column.name] = location.send(column.name)
       end
-  
+      if location.parent_location
+        output['parent_location'] = {
+          'tpid'          => location.parent_location.id,
+          'name'          => location.parent_location.name,
+          'lat'           => location.parent_location.lat,
+          'lng'           => location.parent_location.lng,
+          'bluetooth_mac' => location.parent_location.bluetooth_mac
+        }
+      end
+      
+      # child_locations
+      if !location.child_locations.empty?
+        output['child_locations'] = Array.new
+        for child_location in location.child_locations
+          output['child_locations'] << {
+            'tpid'          => child_location.id,
+            'name'          => child_location.name,
+            'lat'           => child_location.lat,
+            'lng'           => child_location.lng,
+            'bluetooth_mac' => child_location.bluetooth_mac
+          }
+        end
+      end
+      
+      # sections
       output['sections'] = Hash.new
       location.sections.each do |section|
         output['sections']['section-'+section.id.to_s] = Hash.new
         output['sections']['section-'+section.id.to_s]['name'] = section.name
         output['sections']['section-'+section.id.to_s]['text'] = section.text
       end
+      
+      # comments
       if !location.comments.empty?
         output['sections']['comments'] = Hash.new
         for comment in location.comments
