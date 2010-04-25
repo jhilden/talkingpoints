@@ -5,7 +5,8 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= request.host %> :: <%= controller.controller_name %>.<%= controller.action_name %></title>
   <%= stylesheet_link_tag 'screen' %>
-	<link type="text/css" href="/css/overcast/jquery-ui-1.8.custom.css" rel="Stylesheet" />
+	<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/base/jquery-ui.css" rel="stylesheet" />
+	<!--<link type="text/css" href="/css/overcast/jquery-ui-1.8.custom.css" rel="Stylesheet" />-->
 	
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];
@@ -28,9 +29,9 @@
 	<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAACYmNKKpiTg0l7RVm77QbPRTrvHe6Vt5Tqs0FzuZEaX-q0oWxURT47HH0p9LX-CmXcg7LJkuThY9IHw"></script>
 	<%= javascript_include_tag 'application' %>
 </head>
-<body>
+<body class="ui-helper-reset">
   <div class="wrap" id="<%= controller.controller_name %>-<%= controller.action_name %>">
-    <div id="head" class="clearfix">
+    <div id="head" class="ui-helper-clearfix">
       <h1><%= link_to "app.talking-points.org", root_path %></h1>
         
       <div id="user_nav">

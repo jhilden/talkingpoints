@@ -146,6 +146,11 @@
 	<% if @location.created_at != @location.updated_at %> - edited <%= @location.updated_at %><% end %>]
 </p>
 
+<% if current_user %>
+<p>
+	<%= link_to('Edit', edit_location_path(@location), :class => "edit") %>
+	<%= " | " + link_to('Destroy', @location, :confirm => 'Are you sure?', :method => :delete, :class => "delete")  if current_user_is_admin? %>
+</p>
+<% end %>
 
 <%= link_to '< Back to locations', locations_path %>
-<%= link_to('Edit', edit_location_path(@location), :class => "edit") + " |"   if current_user %>
