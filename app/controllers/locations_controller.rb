@@ -228,14 +228,16 @@ class LocationsController < ApplicationController
     def format_locations_output(locations)
       output = Array.new
       locations.each do |loc|
-        output << {
+        output_loc = {
           'tpid'          => loc.id,
           'name'          => loc.name,
           'lat'           => loc.lat,
           'lng'           => loc.lng,
           'bluetooth_mac' => loc.bluetooth_mac,
-          'distance'      => loc.distance.to_f
+          'floor_number'  => loc.floor_number
         }
+        output_loc['distance'] = loc.distance.to_f    if loc.respond_to?('distance')
+        output << output_loc
       end
       return output
     end

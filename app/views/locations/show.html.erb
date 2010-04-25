@@ -67,6 +67,13 @@
   <%= link_to @location.url, @location.url %>
 </p>
 
+<% unless @location.floor_number.blank? %>
+<p>
+  <strong>Floor number:</strong>
+  <%= @location.floor_number %>
+</p>
+<% end %>
+
 <hr />
 
 <div>

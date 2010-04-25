@@ -15,11 +15,8 @@
 	    <th>Location type</th>
 	    <th>Bluetooth mac</th>
 	    <th>Lat</th>
-	    <th>Lng</th>
-	    <th>Street</th>
-	    <th>City</th>
-	    <th>State</th>
-	    <th>Postal code</th>
+			<th>Lng</th>
+	    <th>Address</th>
 	  </tr>
 	
 	<% @locations.each do |location| %>
@@ -28,11 +25,13 @@
 	    <td><%= link_to h(location.location_type.name), location.location_type %></td>
 	    <td><%=h location.bluetooth_mac %></td>
 	    <td><%=h location.lat %></td>
-	    <td><%=h location.lng %></td>
-	    <td><%=h location.street %></td>
-	    <td><%=h location.city %></td>
-	    <td><%=h location.state %></td>
-	    <td><%=h location.postal_code %></td>
+			<td><%=h location.lng %></td>
+	    <td>
+	    	<%= h(location.street) + "<br />"  unless location.street.empty? %>
+			  <%= h(location.city) + ", "  unless location.city.empty? %>
+				<%=h location.state %>
+				<%=h location.postal_code %>
+			</td>
 	    <td><%= link_to('Edit', edit_location_path(location), :class => "edit")  if current_user %></td>
 	    <td><%= link_to('Destroy', location, :confirm => 'Are you sure?', :method => :delete, :class => "delete")  if current_user %></td>
 	  </tr>
