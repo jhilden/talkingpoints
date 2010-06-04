@@ -2,10 +2,20 @@
 	Listing locations
 	<% if controller.controller_name == "locations" and controller.action_name == "get_nearby" %>
 	  nearby <%=h @location.name %>
+	<% elsif controller.controller_name == "locations" and controller.action_name == "search" %>
+	  matching the search term "<%= @search_term %>"
 	<% elsif controller.controller_name == "location_types" and controller.action_name == "show" %>
 	  of type <%=h @location_type.name %>
 	<% end %>
 </h1>
+
+<% if controller.controller_name == "locations" and controller.action_name == "search" %>
+  <form action="/locations/search" method="get">
+    <input type="text" name="q" value="<%= @search_term %>" />
+    <input type="submit" value="Search" />
+  </form>
+	<p>&nbsp;</p>
+<% end %>
 
 <% if @locations.size > 0 %>
 

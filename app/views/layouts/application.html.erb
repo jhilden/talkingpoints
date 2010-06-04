@@ -42,6 +42,10 @@
           <%= link_to "Register", register_path %> |
           <%= link_to "Login", login_path %>
         <% end %>
+				<form action="/locations/search" method="get">
+				  <input type="text" name="q" />
+				  <input type="submit" value="Search" />
+				</form>
       </div>
 			
 			<ul id="global_nav">

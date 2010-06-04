@@ -29,12 +29,35 @@ namespace :deploy do
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
+    restart_sphinx
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
   
+  desc "Symlink to shared database.yml"
   task :symlink_database, :roles => :app do
     run "ln -s #{deploy_to}/shared/config/database.yml #{deploy_to}/current/config/database.yml"
   end
+  
+  desc "Re-establish sphinx symlinks"
+  task :symlink_sphinx do
+    run "rm -fr #{release_path}/db/sphinx && ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
+  end
+
+  desc "Stop the sphinx server"
+  task :stop_sphinx , :roles => :app do
+    run "cd #{current_path} && rake thinking_sphinx:stop RAILS_ENV=production"
+  end
+
+  desc "Start the sphinx server"
+  task :start_sphinx, :roles => :app do
+    run "cd #{current_path} && rake thinking_sphinx:configure RAILS_ENV=production && rake thinking_sphinx:index RAILS_ENV=production && rake thinking_sphinx:start RAILS_ENV=production"
+  end
+
+  desc "Restart the sphinx server"
+  task :restart_sphinx, :roles => :app do
+    stop_sphinx
+    start_sphinx
+  end
 end
 
-after 'deploy:symlink', 'deploy:symlink_database'
+after 'deploy:symlink', 'deploy:symlink_database', 'deploy:symlink_sphinx'
