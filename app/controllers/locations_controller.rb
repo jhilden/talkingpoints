@@ -31,7 +31,13 @@ class LocationsController < ApplicationController
     coordinates[0].gsub!(',', '.').to_f
     coordinates[1].gsub!(',', '.').to_f
     
-    @locations = Location.find(:all, :origin => coordinates, :within => 1, :order => "distance ASC")
+    options_hash = {:origin => coordinates, :order => "distance ASC"}
+    options_hash[:within] = (params[:within] ? params[:within] : 1)
+    options_hash[:units] = :kms  if params[:units] == 'kms'
+    
+    logger.info(options_hash.to_s)
+    
+    @locations = Location.find(:all, options_hash)
     
     respond_to do |format|
       format.html  { render :template => 'locations/index' }
@@ -65,7 +71,7 @@ class LocationsController < ApplicationController
     
     respond_to do |format|
       if @location
-        options_hash = {:origin => @location, :conditions => ["id != ?", @location.id]}
+        options_hash = {:origin => @location, :conditions => ["id != ?", @location.id], :order => 'distance ASC'}
         options_hash[:within] = (params[:within] ? params[:within] : 1)
         options_hash[:units] = :kms  if params[:units] == 'kms'
         
