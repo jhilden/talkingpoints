@@ -1,0 +1,6 @@
+production:
+  bin_path: '/home/tpoints/local/bin'
+
+development:
+  bin_path: '/usr/local/sphinx/bin'
+  config_file: '/home/jk/talkingpoints/config/development.sphinx.conf'
