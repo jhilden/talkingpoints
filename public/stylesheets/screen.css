@@ -149,3 +149,6 @@ pre {
 	border: 2px solid red;
 }
 
+tr.hidden_location {
+	background-color: silver;
+}
