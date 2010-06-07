@@ -1,4 +1,5 @@
 config/database.yml
+config/development.sphinx.conf
 log/*.log
 db/schema.rb
 .project
@@ -10,3 +11,5 @@ db/schema.rb
 *.DS_Store
 .DS_Store
 .gitignore~
+db/sphinx/*
+
