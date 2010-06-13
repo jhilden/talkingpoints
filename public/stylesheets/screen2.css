@@ -190,7 +190,7 @@ ul.menu a	{
 	text-decoration: none;
 	padding: 8px 24px 8px 8px;
 }
-ul.menu a:hover	{
+ul.menu a:hover, ul.menu li:hover > a	{
 	background-color: #1FAADC;
 }
 ul.menu li	{
@@ -210,17 +210,15 @@ ul.menu li > ul	{
 	top: auto;
 	left: auto;
 }
-ul.menu li:hover	{
+ul.menu a.selected	{
 	background-color: #1072ba;
 }
-ul.menu li:hover ul, ul.menu li.selected ul	{
+ul.menu li:hover ul	{
 	display: block;
 }
 ul.menu li li	{
 	display: block;
 	width: 100%;
-	color: #fff;
-	border-top: 1px dotted #1faadc;
 }
 ul.menu li li:first-child	{
 	border-top: none;
@@ -229,6 +227,12 @@ ul.menu li li a	{
 	display: block;
 	font-size: .8em;
 	padding: 8px;
+	color: #fff;
+	border-top: 1px dotted #1faadc;	
+}
+ul.menu li li a.selected	{
+	cursor: default;
+	color: #ccc;
 }
 
 p	{
@@ -259,11 +263,11 @@ p	{
 	color: #1FAADC;
 }
 
-.secondary_menu a#selected	{
+.secondary_menu a.selected	{
 	background-color: #3371bd;
 }
 
-.secondary_menu a#selected:hover	{
+.secondary_menu a.selected:hover	{
 	color: #fff;
 }
 

@@ -1,6 +1,6 @@
 <h1>What's new on the Talking-Points Blog</h1>
 
-<% @feed.each do |item| %>
+<% @feed.items.each do |item| %>
   <div class="blogpost">
   	<h3><%= link_to item.title, item.link %></h3>
 		<p>

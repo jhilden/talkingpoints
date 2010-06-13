@@ -1,6 +1,9 @@
 require 'rss'
 
 class InfoController < ApplicationController
+  def index
+  end
+  
   def about
   end
   
@@ -11,9 +14,31 @@ class InfoController < ApplicationController
   def team
   end
   
-  def inthenews
+  def news
   end
   
   def contact
   end
+  
+  def howitworks
+  end
+  
+  def features
+  end
+  
+  def gestures
+  end
+  
+  def service
+  end
+  
+  def getinvolved
+  end
+  
+  def volunteer
+  end
+  
+  def donate
+  end
+  
 end

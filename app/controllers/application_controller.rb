@@ -76,4 +76,5 @@ class ApplicationController < ActionController::Base
       include Singleton
       include ActionView::Helpers::DateHelper
     end
+
 end

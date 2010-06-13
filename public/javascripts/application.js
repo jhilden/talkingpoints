@@ -27,11 +27,13 @@ google.setOnLoadCallback(function() {
 		$("a.create").button({icons: {primary: 'ui-icon-plus'}});
 	});
 	
-	$(".menu li").hover(function() {
+	$('.menu li').hover(function() {
 		$(this).find('ul:first').show();
 	},function(){
 		$(this).find('ul:first').hide();
 	});
+	
+	$('.menu li').has('.selected').children('a').first().addClass('selected');
 	
 });
 
