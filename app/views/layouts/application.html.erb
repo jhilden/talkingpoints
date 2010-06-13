@@ -5,6 +5,7 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= request.host %> :: <%= controller.controller_name %>.<%= controller.action_name %></title>
   <%= stylesheet_link_tag 'screen' %>
+  <%= stylesheet_link_tag 'screen2' %>  
 	<!--<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/base/jquery-ui.css" rel="stylesheet" />-->
 	<link type="text/css" href="/css/custom-theme/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
 	
@@ -30,6 +31,118 @@
 	<%= javascript_include_tag 'application' %>
 </head>
 <body class="ui-helper-reset">
+
+<div class="header">
+	<div class="search">
+	<form action="/locations/search" method="get">
+		<input type="text" name="q" />
+		<input type="submit" value="Search" />
+		<input type="image" src="images/search.gif" width="22px" height="22px" alt="Search" class="search_button" />
+	</form>
+	</div>
+
+	<div class="header_bar">
+	<div class="menu_bar">
+	<img src="images/logo.jpg" id="logo" />	
+	<ul class="menu">
+	<li><a href="#">How It Works</a>
+		<ul>
+		<li><a href="#">Item</a></li>
+		<li><a href="#">Item</a></li>
+		<li><a href="#">Item</a></li>		
+		<li><a href="#">Item</a></li>
+		</ul>
+	</li>
+	<li><a href="#">Locations</a>
+		<ul>
+		<li><a href="#">Item</a></li>
+		<li><a href="#">Item</a></li>
+		<li><a href="#">Item</a></li>		
+		<li><a href="#">Item</a></li>
+		</ul>
+	</li>
+	<li><a href="#">Get Involved</a>
+		<ul>
+		<li><a href="#">Item</a></li>
+		<li><a href="#">Item</a></li>
+		<li><a href="#">Item</a></li>		
+		<li><a href="#">Item</a></li>
+		</ul>
+	</li>
+	</ul>	
+	<div class="secondary_menu">
+		<a href="#">About</a>|
+		<a href="#">Blog</a>|
+		<a href="#">News</a>
+	</div>
+	</div>
+	</div>
+</div>
+
+<div class="body">
+<div class="columns">
+
+	<div class="right_column">
+		<div class="right_box">
+		<div class="box">
+			<form method="post" action="">
+			<label for="login_id">User ID</label>
+			<input type="text" name="login[id]" value="" />
+			<label for="login_password">Password</label>
+			<input type="password" name="login[password]" value="" />		
+			<input type="submit" name="action[login]" value="Log In" />
+			<div class="links"><a href="#">Join</a>|<a href="#">Forgot User ID/Password</a></div>
+			</form>
+		</div>
+		</div>
+		<div class="featured">
+			<a href="#">Learn about the project</a>
+			<a href="#">Read our blog</a>
+		</div>
+	</div>
+	<div class="left_column">
+      <% if ["locations", "sections", "comments", "location_types"].include?(controller.controller_name) %>
+      <ul id="breadcrumb_nav">
+        <li><%= link_to "Locations", locations_path %></li>
+        <% if @location and @location.id %>
+          <li>> <%= link_to @location.name, @location %></li>
+        <% end %>
+        <% if controller.controller_name == "sections" %>
+          <li>> <%= link_to "Sections", location_sections_path(@location) %></li>
+          <% if @section and @section.id %>
+            <li>> <%= link_to @section.name, location_section_path(@location, @section) %></li>
+          <% end %>
+        <% elsif controller.controller_name == "comments" %>
+          <li>> <%= link_to "Comments", location_comments_path(@location) %></li>
+          <% if @comment and @comment.id %>
+            <li>> <%= link_to @comment.title, location_comment_path(@location, @comment) %></li>
+          <% end %>
+        <% elsif controller.controller_name == "location_types" %>
+          <li>> <%= link_to "Types", location_types_path(@location) %></li>
+          <% if @location_type %>
+            <li>> <%= link_to @location_type.name, @location_type %></li>
+          <% end %>
+        <% end %>
+      </ul>
+      <% end %>
+			
+      <% if flash.length > 0 %>
+        <div class="notice"><%= flash[:notice] %></div>
+      <% end %>
+        
+      <%= yield %>  
+	</div>
+</div>
+<div class="footer">
+	&copy; 2010 Talking Points | <a href="/contact">Contact Us</a>
+</div>
+</div>
+
+
+<!--
+
+Old template
+
   <div class="wrap" id="<%= controller.controller_name %>-<%= controller.action_name %>">
     <div id="head" class="ui-helper-clearfix">
       <h1><%= link_to "app.talking-points.org", root_path %></h1>
@@ -69,6 +182,7 @@
 				</li>
 		  </ul>
     </div>
+   
       
     <div id="content">
     	<% if ["locations", "sections", "comments", "location_types"].include?(controller.controller_name) %>
@@ -102,7 +216,11 @@
         
       <%= yield %>  
     </div>
+
 		
   </div>
+-->   
+
+
 </body>
 </html>

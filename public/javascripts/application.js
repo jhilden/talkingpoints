@@ -21,11 +21,18 @@ google.setOnLoadCallback(function() {
 	});
 	
 	$(function() {
-		$("a.button, input:submit").button();
+		//$("a.button, input:submit").button();
 		$("a.delete").button({icons: {primary: 'ui-icon-trash'}, text: false});
 		$("a.edit").button({icons: {primary: 'ui-icon-pencil'}, text: false});
 		$("a.create").button({icons: {primary: 'ui-icon-plus'}});
 	});
+	
+	$(".menu li").hover(function() {
+		$(this).find('ul:first').show();
+	},function(){
+		$(this).find('ul:first').hide();
+	});
+	
 });
 
 // all the code related to specifying coordinates using Google Maps
