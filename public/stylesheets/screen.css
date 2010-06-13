@@ -7,7 +7,6 @@ textarea {
 }
 
 a { color: #555555; }
-a:hover { color: #212121; }
 
 .wrap {
 	width: 960px;
@@ -150,3 +149,6 @@ pre {
 	border: 2px solid red;
 }
 
+tr.hidden_location {
+	background-color: silver;
+}

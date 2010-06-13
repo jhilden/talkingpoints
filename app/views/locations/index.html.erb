@@ -2,10 +2,20 @@
 	Listing locations
 	<% if controller.controller_name == "locations" and controller.action_name == "get_nearby" %>
 	  nearby <%=h @location.name %>
+	<% elsif controller.controller_name == "locations" and controller.action_name == "search" %>
+	  matching the search term "<%= @search_term %>"
 	<% elsif controller.controller_name == "location_types" and controller.action_name == "show" %>
 	  of type <%=h @location_type.name %>
 	<% end %>
 </h1>
+
+<% if controller.controller_name == "locations" and controller.action_name == "search" %>
+  <form action="/locations/search" method="get">
+    <input type="text" name="q" value="<%= @search_term %>" />
+    <input type="submit" value="Search" />
+  </form>
+	<p>&nbsp;</p>
+<% end %>
 
 <% if @locations.size > 0 %>
 
@@ -13,17 +23,18 @@
 	  <tr>
 	    <th>Name</th>
 	    <th>Location type</th>
-	    <th>Bluetooth mac</th>
+	    <th>Parent</th>
 	    <th>Lat</th>
 			<th>Lng</th>
 	    <th>Address</th>
 	  </tr>
 	
 	<% @locations.each do |location| %>
-	  <tr>
+	  <% if current_user or !location.hidden %>
+	  <tr <%= 'class="hidden_location"' if location.hidden %>>
 	    <td><%= link_to h(location.name), location %></td>
 	    <td><%= link_to h(location.location_type.name), location.location_type %></td>
-	    <td><%=h location.bluetooth_mac %></td>
+	    <td><%= link_to(h(location.parent_location.name), location.parent_location) if location.parent_location %></td>
 	    <td><%=h location.lat %></td>
 			<td><%=h location.lng %></td>
 	    <td>
@@ -35,6 +46,7 @@
 	    <td><%= link_to('Edit', edit_location_path(location), :class => "edit")  if current_user %></td>
 	    <td><%= link_to('Destroy', location, :confirm => 'Are you sure?', :method => :delete, :class => "delete")  if current_user %></td>
 	  </tr>
+		<% end %>
 	<% end %>
 	</table>
 	

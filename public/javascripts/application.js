@@ -2,7 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 google.load("jquery", "1.4.2");
-google.load("jqueryui", "1.8.0");
+google.load("jqueryui", "1.8.1");
 
 google.setOnLoadCallback(function() {
 	// extends jQuery to make a non-AJAX POST request

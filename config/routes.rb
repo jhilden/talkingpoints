@@ -1,8 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources(:locations, :member => {:get_nearby => :get, :geocode => :get}) do |location|
+  map.resources(:locations, :member => {:get_nearby => :get, :geocode => :get}, :collection => {:search => :get}) do |location|
     location.resources :sections
     location.resources :comments
   end
+  
   
   map.resource :user_session
   map.resource :account, :controller => :users
@@ -15,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :location_types
   
+  # static pages
   map.with_options :controller => 'info' do |info|
     info.about 'about', :action => 'about'
     info.blog 'blog', :action => 'blog'

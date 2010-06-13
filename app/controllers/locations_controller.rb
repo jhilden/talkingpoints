@@ -14,13 +14,30 @@ class LocationsController < ApplicationController
     end
   end
   
+  def search
+    @search_term = params[:q]
+    @locations = Location.search @search_term
+    
+    respond_to do |format|
+      format.html  { render :template => 'locations/index' }
+      format.xml   { render :xml  => format_locations_output(@locations) }
+      format.json  { render :json => format_locations_output(@locations) }
+    end
+  end
+  
   # GET /locations/by_coordinates/12,345;67,890
   def by_coordinates
     coordinates = params[:id].split(';')
     coordinates[0].gsub!(',', '.').to_f
     coordinates[1].gsub!(',', '.').to_f
     
-    @locations = Location.find(:all, :origin => coordinates, :within => 1)
+    options_hash = {:origin => coordinates, :order => "distance ASC"}
+    options_hash[:within] = (params[:within] ? params[:within] : 1)
+    options_hash[:units] = :kms  if params[:units] == 'kms'
+    
+    logger.info(options_hash.to_s)
+    
+    @locations = Location.find(:all, options_hash)
     
     respond_to do |format|
       format.html  { render :template => 'locations/index' }
@@ -54,7 +71,7 @@ class LocationsController < ApplicationController
     
     respond_to do |format|
       if @location
-        options_hash = {:origin => @location, :conditions => ["id != ?", @location.id]}
+        options_hash = {:origin => @location, :conditions => ["id != ?", @location.id], :order => 'distance ASC'}
         options_hash[:within] = (params[:within] ? params[:within] : 1)
         options_hash[:units] = :kms  if params[:units] == 'kms'
         
