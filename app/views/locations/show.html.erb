@@ -77,41 +77,28 @@
 <hr />
 
 <div>
-	<strong>Sections:</strong>
+	<h2>Sections:</h2>
 	
 	<% unless @location.sections == nil %>
-	  <ul>
+	  <div id="sections">
 	  <% @location.sections.each do |section| %>
-		  <li><%= link_to section.name, location_section_path(@location, section) %></li>
-		<% end #@location.section.each %>
-		</ul>
+		  <h3><%= link_to section.name, location_section_path(@location, section) %></h3>
+			<div><p><%= section.text %></p></div>
+		<% end %>
+		</div>
 	<% else %>
 	  No sections yet
 	<% end %>
 	
-	<%= link_to 'New section', new_location_section_path(@location) %>
-</div>
-
-<hr />
-
-<div>
-  <strong>Comments:</strong>
-  
-  <% unless @location.comments == nil %>
-	  <ul>
-    <% @location.comments.each do |comment| %>
-      <li>
-      	<%= link_to comment.title, location_comment_path(@location, comment) %>
-				by <%= link_to @location.user.username, @location.user %>
-				<span class="reduced">(on <%= comment.created_at.to_s(:short) %>)</span>
-			</li>
-    <% end #@location.comment.each %>
-    </ul>
-	<% else %>
-    No comments yet
-  <% end %>
 	
-	<%= link_to 'New comment', new_location_comment_path(@location) %>
+	
+	<script type="text/javascript">
+		$(function() {
+			$("#sections").accordion({
+				autoHeight: false
+			});
+		});
+	</script>
 </div>
 
 <hr />
@@ -161,3 +148,25 @@
 <% end %>
 
 <%= link_to '< Back to locations', locations_path %>
+
+<hr />
+
+<div>
+  <h2>Comments:</h2>
+  
+  <% unless @location.comments == nil %>
+    <ul>
+    <% @location.comments.each do |comment| %>
+      <li>
+        <%= link_to comment.title, location_comment_path(@location, comment) %>
+        by <%= link_to @location.user.username, @location.user %>
+        <span class="reduced">(on <%= comment.created_at.to_s(:short) %>)</span>
+      </li>
+    <% end #@location.comment.each %>
+    </ul>
+  <% else %>
+    No comments yet
+  <% end %>
+  
+  <%= link_to 'New comment', new_location_comment_path(@location) %>
+</div>

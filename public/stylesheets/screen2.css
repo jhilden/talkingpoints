@@ -9,6 +9,9 @@ body	{
 	font-family: verdana, sans-serif !important;
 	font-size: 100% !important;
 }
+img {
+	border: 0;
+}
 .body	{
 	width: 1000px;
 	margin: 0 auto;
@@ -33,30 +36,21 @@ body	{
 	float: right;
 }
 
-.featured a	{
-	text-decoration: none;
+#featured a {
 	display: block;
-	margin: 6px 0;
-	height: 44px;
-	line-height: 44px;
-	background: url('../images/bluebutton.jpg') repeat-x 0% 50%;
-	padding: 0 12px;
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	color: #fff;
-	font-size: 1.25em;
-}
-
-.featured a:hover	{
-	background-image: url('../images/greybutton.jpg');
+	margin: .6em 0;
+	text-align: left;
+	padding-top: .6em;
+	padding-bottom: .6em;
 }
 
 .footer	{
 	clear: both;
 	width: 100%;
 	text-align: center;
-	margin-bottom: 3px;
+	padding: .5em 0 .5em 0;
+	border-top: 1px solid silver;
+	margin: 1em 0 3px 0;
 }
 
 .header	{
@@ -77,16 +71,6 @@ input[type="text"],input[type="password"]	{
 	border: solid 1px #999;
 	outline: none;
 	height: 22px;
-}
-
-input[type="submit"]	{
-	background: url('../images/bluebutton.jpg') repeat-x 0% 50%;
-	border: none;
-	padding: 3px 6px;
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	color: #fff;
 }
 
 label	{
@@ -298,4 +282,17 @@ p	{
 	top: 11px;
 	padding: 0;
 	margin: 0;
+}
+
+.right_box #new_user_session label {
+  display: inline;
+}
+.right_box #new_user_session input {
+  display: block;
+}
+.right_box #new_user_session #user_session_remember_me {
+	display: inline;
+}
+.right_box #new_user_session #user_session_submit {
+  float: right;
 }

@@ -31,7 +31,7 @@
 	
 	<% @locations.each do |location| %>
 	  <% if current_user or !location.hidden %>
-	  <tr <%= 'class="hidden_location"' if location.hidden %>>
+	  <tr <%= 'class="hidden_location"' if location.hidden == 1 %>>
 	    <td><%= link_to h(location.name), location %></td>
 	    <td><%= link_to h(location.location_type.name), location.location_type %></td>
 	    <td><%= link_to(h(location.parent_location.name), location.parent_location) if location.parent_location %></td>

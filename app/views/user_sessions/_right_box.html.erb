@@ -1,0 +1,20 @@
+<% if current_user %>
+  <p>Welcome <%= link_to current_user.username, current_user %></p>
+  <%= link_to "Edit account", edit_user_path(:current) %> |
+  <%= link_to "Logout", logout_path %>
+<% else %>
+  <% form_for UserSession.new, :url => user_session_path do |f| %>
+	  <%= f.error_messages %>
+	  <%= f.label :username %>
+	  <%= f.text_field :username %>
+    
+	  <%= f.label :password %>
+	  <%= f.password_field :password %>
+    
+		<%= f.label :remember_me %>
+	  <%= f.check_box :remember_me %>
+    
+	  <%= f.submit "Login" %>
+	<% end %>
+  <%= link_to "Register", register_path %>
+<% end %>
