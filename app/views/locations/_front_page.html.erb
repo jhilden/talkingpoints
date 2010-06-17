@@ -7,15 +7,20 @@
     
     function mapLoaded() {
       if (GBrowserIsCompatible()) {
-        var location_coordinates = new GLatLng(<%= @locations[0].lat %>, <%= @locations[0].lng %>);
-        
-        map = new GMap2(document.getElementById("map_canvas"));
-        map.setCenter(new GLatLng(<%= @locations[0].lat %>, <%= @locations[0].lng %>), 14);
-        map.addControl(new GSmallMapControl());
-        map.addControl(new GMapTypeControl());
-        
+				<% map = false %>
         <% @locations.each do |location| %>
           <% if !location.lat.blank? and !location.lng.blank? %>
+					  <% if !map %>
+						  var location_coordinates = new GLatLng(<%= location.lat %>, <%= location.lng %>);
+	        
+			        map = new GMap2(document.getElementById("map_canvas"));
+			        map.setCenter(location_coordinates, 14);
+			        map.addControl(new GSmallMapControl());
+			        map.addControl(new GMapTypeControl());
+						  
+							<% map = true %>
+						<% end %>
+						
             var location_marker_<%= location.id %> = new GMarker(
               new GLatLng(<%= location.lat %>, <%= location.lng %>),
               {title: "<%= escape_javascript location.name %>"}
@@ -31,13 +36,13 @@
   <ul>
   <% @locations.each do |location| %>
     <li class="ui-helper-clearfix">
-    	<div>
+    	<span class="right">
     	  <br /><br />
         <span title="<%= location.created_at %>">
           <%= time_ago_in_words(location.created_at) %> ago
         </span><br />
         by <%= location.user.username %>
-      </div>
+      </span>
     	<%= link_to h(location.name), location %><br />
 			<%= location.location_type.name %><br />
 			<%= h(location.street) + "<br />"  unless location.street.empty? %>

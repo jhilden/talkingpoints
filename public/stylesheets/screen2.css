@@ -338,7 +338,7 @@ p	{
 #featured_locations li.last a {
   display: block;
 }
-#featured_locations div {
+#featured_locations span.right {
   float: right;
 	text-align: right;
 }

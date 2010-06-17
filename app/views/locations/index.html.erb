@@ -57,15 +57,20 @@
 	  
 	  function mapLoaded() {
 	    if (GBrowserIsCompatible()) {
-	      var location_coordinates = new GLatLng(<%= @locations[0].lat %>, <%= @locations[0].lng %>);
-	      
-	      map = new GMap2(document.getElementById("map_canvas"));
-	      map.setCenter(new GLatLng(<%= @locations[0].lat %>, <%= @locations[0].lng %>), 14);
-	      map.addControl(new GSmallMapControl());
-	      map.addControl(new GMapTypeControl());
-	      
-	      <% @locations.each do |location| %>
-				  <% if !location.lat.blank? and !location.lng.blank? %>
+				<% map = false %>
+        <% @locations.each do |location| %>
+          <% if !location.lat.blank? and !location.lng.blank? %>
+            <% if !map %>
+              var location_coordinates = new GLatLng(<%= location.lat %>, <%= location.lng %>);
+          
+              map = new GMap2(document.getElementById("map_canvas"));
+              map.setCenter(location_coordinates, 14);
+              map.addControl(new GSmallMapControl());
+              map.addControl(new GMapTypeControl());
+              
+              <% map = true %>
+            <% end %>
+				    
 			      var location_marker_<%= location.id %> = new GMarker(
 			        new GLatLng(<%= location.lat %>, <%= location.lng %>),
 			        {title: "<%= escape_javascript location.name %>"}
