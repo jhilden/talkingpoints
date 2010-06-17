@@ -42,7 +42,7 @@
 
 	<div class="header_bar">
 	<div class="menu_bar">
-	<a href="<% root_path %>"><img src="/images/logo.jpg" id="logo" /></a>
+	<a href="<%= root_path %>"><img src="/images/logo.jpg" id="logo" /></a>
 	<ul class="menu">
 	<li><%= link_to_unless_current 'How It Works', howitworks_path do
 			link_to 'How It Works', howitworks_path, :class => 'selected'

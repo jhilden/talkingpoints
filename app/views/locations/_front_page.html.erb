@@ -1,0 +1,53 @@
+<h2>Recently Added Locations</h2>
+
+<% if @locations.size > 0 %>
+  <div id="map_canvas"></div>
+  <script type="text/javascript">
+    google.load("maps", "2", {callback: mapLoaded});
+    
+    function mapLoaded() {
+      if (GBrowserIsCompatible()) {
+        var location_coordinates = new GLatLng(<%= @locations[0].lat %>, <%= @locations[0].lng %>);
+        
+        map = new GMap2(document.getElementById("map_canvas"));
+        map.setCenter(new GLatLng(<%= @locations[0].lat %>, <%= @locations[0].lng %>), 14);
+        map.addControl(new GSmallMapControl());
+        map.addControl(new GMapTypeControl());
+        
+        <% @locations.each do |location| %>
+          <% if !location.lat.blank? and !location.lng.blank? %>
+            var location_marker_<%= location.id %> = new GMarker(
+              new GLatLng(<%= location.lat %>, <%= location.lng %>),
+              {title: "<%= escape_javascript location.name %>"}
+            );
+            map.addOverlay(location_marker_<%= location.id %>);
+            location_marker_<%= location.id %>.bindInfoWindowHtml("<strong><%= escape_javascript location.name %></strong><p><%= escape_javascript location.description %></p>");
+          <% end %>
+        <% end %>
+      }
+    }
+  </script>
+
+  <ul>
+  <% @locations.each do |location| %>
+    <li class="ui-helper-clearfix">
+    	<div>
+    	  <br /><br />
+        <span title="<%= location.created_at %>">
+          <%= time_ago_in_words(location.created_at) %> ago
+        </span><br />
+        by <%= location.user.username %>
+      </div>
+    	<%= link_to h(location.name), location %><br />
+			<%= location.location_type.name %><br />
+			<%= h(location.street) + "<br />"  unless location.street.empty? %>
+      <%= h(location.city) + ", "  unless location.city.empty? %>
+      <%= h(location.state) + ", "  unless location.state.empty? %>
+      <%=h location.postal_code %>
+    </li>
+  <% end %>
+	  <li class="last"><%= link_to 'More locations', locations_path, {:class => 'button'} %></li>
+  </ul>
+<% else %>
+  <p>No recently added locations found</p>
+<% end %>

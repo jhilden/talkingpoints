@@ -21,7 +21,7 @@ google.setOnLoadCallback(function() {
 	});
 	
 	$(function() {
-		$("input:submit").button();
+		$("input:submit, a.button").button();
 		$("#featured a").button();
 		$("a.delete").button({icons: {primary: 'ui-icon-trash'}, text: false});
 		$("a.edit").button({icons: {primary: 'ui-icon-pencil'}, text: false});
