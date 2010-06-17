@@ -2,7 +2,7 @@ require 'rss'
 
 class InfoController < ApplicationController
   def index
-    @locations = Location.find(:all, :order => 'created_at', :limit => 5, :conditions => 'hidden = 0')
+    @locations = Location.find(:all, :order => 'created_at DESC', :limit => 5, :conditions => 'hidden = 0')
   end
   
   def about
