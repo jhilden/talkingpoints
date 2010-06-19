@@ -306,18 +306,18 @@ p	{
 #featured_locations {
 	background-color: #F7F4EB;
 	width: 952px;
-	margin-top: 8em;
+	padding: 0 24px;
 }
 #featured_locations h2 {
   border-bottom: 1px solid black;
 	padding: .5em;
 }
 #featured_locations #map_canvas, #featured_locations ul {
-	width: 450px;
 	float: left;
 }
 #featured_locations #map_canvas {
-  
+	width: 448px;
+  border: 1px solid black;
 }
 #featured_locations ul {
   padding: 0;

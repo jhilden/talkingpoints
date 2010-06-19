@@ -1,0 +1,49 @@
+<ul class="menu">
+  <li><%= link_to_unless_current 'How It Works', howitworks_path do
+      link_to 'How It Works', howitworks_path, :class => 'selected'
+    end %>
+    <ul>
+      <li><%= link_to_unless_current 'Features', features_path do
+        link_to 'Features', features_path, :class => 'selected'
+      end %></li>
+      <li><%= link_to_unless_current 'Gesture Library', gestures_path do
+        link_to 'Gesture Library', gestures_path, :class => 'selected'
+      end %></li>
+      <li><%= link_to_unless_current 'Service Nearby', service_path do
+        link_to 'Service', service_path, :class => 'selected'
+      end %></li>             
+    </ul>
+  </li>
+  <li><%= link_to_unless_current 'Locations', locations_path do
+      link_to 'Locations', locations_path, :class => 'selected'
+    end %>
+  </li>
+  <li>
+    <%= link_to_unless_current 'Get Involved', getinvolved_path do
+      link_to 'Get Involved', getinvolved_path, :class => 'selected'
+    end %>
+    <ul>
+    <li><%= link_to_unless_current 'Project Team', team_path do
+        link_to 'Project Team', team_path, :class => 'selected'
+      end %></li>
+    <li><%= link_to_unless_current 'Volunteer', volunteer_path do
+        link_to 'Volunteer', volunteer_path, :class => 'selected'
+      end %></li>
+    <li><%= link_to_unless_current 'Donate', donate_path do
+        link_to 'Donate', donate_path, :class => 'selected'
+      end %></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="secondary_menu">
+  <%= link_to_unless_current 'About',about_path do
+    link_to 'About', about_path, :class => 'selected'
+    end %>|
+    <%= link_to_unless_current 'Blog', blog_path  do
+      link_to 'Blog', blog_path, :class=>'selected'
+    end %>|
+    <%= link_to_unless_current 'News',news_path  do
+      link_to 'News', news_path, :class=>'selected'
+    end %>
+</div>
