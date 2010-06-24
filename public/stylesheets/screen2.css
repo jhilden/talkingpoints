@@ -301,7 +301,21 @@ p	{
   float: right;
 }
 
-/* info/index */
+
+.left_column h1 {
+	border: 1px solid #1072BA;
+	border-width: 4px 0 1px 0;
+	color: #1072BA;
+	font-size: 1.3em;
+	padding: .1em 0 .3em 0;
+}
+.left_column h1 a {
+  color: #1072BA;
+}
+
+
+
+/* /info/index */
 
 #featured_locations {
 	background-color: #F7F4EB;
@@ -338,7 +352,37 @@ p	{
 #featured_locations li.last a {
   display: block;
 }
-#featured_locations span.right {
-  float: right;
-	text-align: right;
+
+
+/* /locations */
+
+#add-new-location {
+	float: right;
 }
+
+.location-list {
+	padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.location-list li {
+  border-bottom: 1px solid #999999;
+  margin-bottom: .5em;
+  padding-bottom: .5em;
+}
+.location-list span.right {
+  float: right;
+  text-align: right;
+}
+
+/* /locations/index */
+
+#locations_index .location-list {
+  clear: both;
+}
+/* /locations/1/show */
+
+#add-new-section {
+	float: right;
+}
+

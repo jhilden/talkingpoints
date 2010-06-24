@@ -1,14 +1,3 @@
-<h1>
-	Listing locations
-	<% if controller.controller_name == "locations" and controller.action_name == "get_nearby" %>
-	  nearby <%=h @location.name %>
-	<% elsif controller.controller_name == "locations" and controller.action_name == "search" %>
-	  matching the search term "<%= @search_term %>"
-	<% elsif controller.controller_name == "location_types" and controller.action_name == "show" %>
-	  of type <%=h @location_type.name %>
-	<% end %>
-</h1>
-
 <% if controller.controller_name == "locations" and controller.action_name == "search" %>
   <form action="/locations/search" method="get">
     <input type="text" name="q" value="<%= @search_term %>" />
@@ -17,21 +6,47 @@
 	<p>&nbsp;</p>
 <% end %>
 
-<% if @locations.size > 0 %>
 
-	<table>
-	  <tr>
-	    <th>Name</th>
-	    <th>Location type</th>
-	    <th>Parent</th>
-	    <th>Lat</th>
-			<th>Lng</th>
-	    <th>Address</th>
-	  </tr>
-	
+<div id="map_canvas"></div>
+<script type="text/javascript">
+  google.load("maps", "2", {callback: mapLoaded});
+  
+  function mapLoaded() {
+    if (GBrowserIsCompatible()) {
+      <% map = false %>
+      <% @locations.each do |location| %>
+        <% if !location.lat.blank? and !location.lng.blank? %>
+          <% if !map %>
+            var location_coordinates = new GLatLng(<%= location.lat %>, <%= location.lng %>);
+        
+            map = new GMap2(document.getElementById("map_canvas"));
+            map.setCenter(location_coordinates, 14);
+            map.addControl(new GSmallMapControl());
+            map.addControl(new GMapTypeControl());
+            
+            <% map = true %>
+          <% end %>
+          
+          var location_marker_<%= location.id %> = new GMarker(
+            new GLatLng(<%= location.lat %>, <%= location.lng %>),
+            {title: "<%= escape_javascript location.name %>"}
+          );
+          map.addOverlay(location_marker_<%= location.id %>);
+          location_marker_<%= location.id %>.bindInfoWindowHtml("<strong><%= escape_javascript location.name %></strong><p><%= escape_javascript location.description %></p>");
+        <% end %>
+      <% end %>
+    }
+  }
+</script>
+
+<%= link_to 'Add new location', new_location_path, {:id => 'add-new-location', :class => 'create'} %>
+
+<% if @locations.size > 0 %>
+  <ul class="location-list">	
 	<% @locations.each do |location| %>
 	  <% if current_user or !location.hidden %>
-	  <tr <%= 'class="hidden_location"' if location.hidden == 1 %>>
+		<!--
+	  <li <%= 'class="hidden_location"' if location.hidden == 1 %>>
 	    <td><%= link_to h(location.name), location %></td>
 	    <td><%= link_to h(location.location_type.name), location.location_type %></td>
 	    <td><%= link_to(h(location.parent_location.name), location.parent_location) if location.parent_location %></td>
@@ -45,47 +60,33 @@
 			</td>
 	    <td><%= link_to('Edit', edit_location_path(location), :class => "edit")  if current_user %></td>
 	    <td><%= link_to('Destroy', location, :confirm => 'Are you sure?', :method => :delete, :class => "delete")  if current_user %></td>
-	  </tr>
+	  </li>
+		-->
+		
+			<li class="ui-helper-clearfix<%= ' hidden_location' if location.hidden == 1 %>">
+	      <span class="right">
+	        <br /><br />
+	        <span title="<%= location.created_at %>">
+	          <%= time_ago_in_words(location.created_at) %> ago
+	        </span><br />
+	        by <%= location.user.username %>
+	      </span>
+	      <strong><%= link_to h(location.name), location %></strong>
+				<%= "< " + link_to(h(location.parent_location.name), location.parent_location) if location.parent_location %><br />
+	      <%= location.location_type.name %><br />
+	      <%= h(location.street) + "<br />"  unless location.street.empty? %>
+	      <%= h(location.city) + ", "  unless location.city.empty? %>
+	      <%= h(location.state) + ", "  unless location.state.empty? %>
+	      <%=h location.postal_code %>
+	    </li>
 		<% end %>
 	<% end %>
-	</table>
+	</ul>
 	
-	<br />
-	<div id="map_canvas"></div>
-	<script type="text/javascript">
-	  google.load("maps", "2", {callback: mapLoaded});
-	  
-	  function mapLoaded() {
-	    if (GBrowserIsCompatible()) {
-				<% map = false %>
-        <% @locations.each do |location| %>
-          <% if !location.lat.blank? and !location.lng.blank? %>
-            <% if !map %>
-              var location_coordinates = new GLatLng(<%= location.lat %>, <%= location.lng %>);
-          
-              map = new GMap2(document.getElementById("map_canvas"));
-              map.setCenter(location_coordinates, 14);
-              map.addControl(new GSmallMapControl());
-              map.addControl(new GMapTypeControl());
-              
-              <% map = true %>
-            <% end %>
-				    
-			      var location_marker_<%= location.id %> = new GMarker(
-			        new GLatLng(<%= location.lat %>, <%= location.lng %>),
-			        {title: "<%= escape_javascript location.name %>"}
-						);
-			      map.addOverlay(location_marker_<%= location.id %>);
-			      location_marker_<%= location.id %>.bindInfoWindowHtml("<strong><%= escape_javascript location.name %></strong><p><%= escape_javascript location.description %></p>");
-	        <% end %>
-				<% end %>
-	    }
-	  }
-	</script>
 	
 <% else %>
   <p>No locations found</p>
 <% end %>
 
-<%= link_to 'Create new location', new_location_path, :class => 'create' %>
+
 

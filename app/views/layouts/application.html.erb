@@ -30,7 +30,7 @@
 	<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAACYmNKKpiTg0l7RVm77QbPRTrvHe6Vt5Tqs0FzuZEaX-q0oWxURT47HH0p9LX-CmXcg7LJkuThY9IHw"></script>
 	<%= javascript_include_tag 'application' %>
 </head>
-<body class="ui-helper-reset">
+<body id="<%= controller.controller_name + '_' + controller.action_name %>" class="ui-helper-reset">
 
 <div class="header">
 	<div class="search">

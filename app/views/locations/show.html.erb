@@ -77,20 +77,23 @@
 <hr />
 
 <div>
+	<%= link_to 'Add new section', new_location_section_path(@location), :id => 'add-new-section', :class => 'create' %>
 	<h2>Sections:</h2>
 	
 	<% unless @location.sections == nil %>
 	  <div id="sections">
 	  <% @location.sections.each do |section| %>
-		  <h3><%= link_to section.name, location_section_path(@location, section) %></h3>
-			<div><p><%= section.text %></p></div>
+		  <h3 id="section-<%= section.id %>"><%= link_to section.name, location_section_path(@location, section) %></h3>
+			<div>
+				<p><%= section.text %></p>
+			  <%= link_to 'Edit this section', edit_location_section_path(@location, section), :class => 'edit' %>
+	      <%= link_to 'Delete this section', location_section_path(@location, section), :class => 'delete', :confirm => 'Are you sure?', :method => :delete %>
+			</div>
 		<% end %>
 		</div>
 	<% else %>
 	  No sections yet
 	<% end %>
-	
-	
 	
 	<script type="text/javascript">
 		$(function() {
