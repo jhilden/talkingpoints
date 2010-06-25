@@ -18,7 +18,6 @@ ActionController::Routing::Routes.draw do |map|
   # static pages
   map.with_options :controller => 'info' do |info|
     info.about 'about', :action => 'about'
-    info.blog 'blog', :action => 'blog'
     info.team 'team', :action => 'team'
     info.news 'news', :action => 'news'
     info.contact 'contact', :action => 'contact'
