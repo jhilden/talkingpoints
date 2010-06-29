@@ -1,0 +1,15 @@
+<div class="header">
+  <div class="search">
+    <form action="/locations/search" method="get">
+      <input type="text" name="q" />
+      <input type="image" src="/images/search.gif" width="22px" height="22px" alt="Search" class="search_button" />
+    </form>
+  </div>
+
+  <div class="header_bar">
+    <div class="menu_bar">
+      <a href="<%= root_path %>"><img src="/images/logo.jpg" id="logo" /></a>
+      <%= render :partial => 'shared/menu' %>
+    </div>
+  </div>
+</div>

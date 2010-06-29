@@ -1,84 +1,24 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%= render :partial => 'shared/html_head' %>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= request.host %> :: <%= controller.controller_name %>.<%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'screen' %>
-  <%= stylesheet_link_tag 'screen2' %>  
-	<!--<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/base/jquery-ui.css" rel="stylesheet" />-->
-	<link type="text/css" href="/css/custom-theme/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
-	
-	<script type="text/javascript">
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-16270314-1']);
-	  _gaq.push(['_setDomainName', '.talking-points.org']);
-	  _gaq.push(['_trackPageview']);
-	
-	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-	</script>
-	
-	<script type='text/javascript'>
-	  window._auth_token_name = "<%= request_forgery_protection_token %>";
-	  window._auth_token =      "<%= form_authenticity_token %>";
-	</script>
-	
-	<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAACYmNKKpiTg0l7RVm77QbPRTrvHe6Vt5Tqs0FzuZEaX-q0oWxURT47HH0p9LX-CmXcg7LJkuThY9IHw"></script>
-	<%= javascript_include_tag 'application' %>
-</head>
-<body id="<%= controller.controller_name + '_' + controller.action_name %>" class="ui-helper-reset">
-
-<div class="header">
-	<div class="search">
-		<form action="/locations/search" method="get">
-			<input type="text" name="q" />
-			<input type="image" src="/images/search.gif" width="22px" height="22px" alt="Search" class="search_button" />
-		</form>
-	</div>
-
-	<div class="header_bar">
-		<div class="menu_bar">
-			<a href="<%= root_path %>"><img src="/images/logo.jpg" id="logo" /></a>
-			<%= render :partial => 'shared/menu' %>
-    </div>
-	</div>
-</div>
+<%= render :partial => 'shared/header' %>
 
 <div class="body">
 	
 	<div class="columns ui-helper-clearfix">
 	
-		<div class="right_column">
-			<div class="right_box">
-				<div class="box">
-					<%= render :partial => 'user_sessions/right_box' %>
-				</div>
-				<% if !(controller.controller_name == 'info' and controller.action_name == 'index') %>
-				<div class="box">
-					<h2>Recent Blog Entries</h2>
-					<div class="more"><%= link_to 'more >>', 'http://blog.talking-points.org' %></div>
-				</div>
-
-				<% end %>
-			</div>
-			<div id="featured">
-				<%= link_to 'Learn about the project', about_path %>
-				<%= link_to 'Read our blog', 'http://blog.talking-points.org' %>
-			</div>
+    <div class="right_column">
+    	<%= render :partial => 'shared/right_box' %>
+			
+			<%= render :partial => 'shared/featured' %>
 		</div>
 		
 		<div class="left_column">
 			
       <% if ["locations", "sections", "comments", "location_types"].include?(controller.controller_name) %>
-      <h1>
-			<ul id="breadcrumb_nav">
+      <h1><ul id="breadcrumb_nav">
         <li><%= link_to "Locations", locations_path %></li>
         <% if @location and @location.id %>
-          <li>> <%= link_to @location.name, @location %></li>
+          <li>> <%= @location.name %></li>
         <% end %>
         <% if controller.controller_name == "sections" %>
           <li>> <%= link_to "Sections", location_sections_path(@location) %></li>
@@ -96,8 +36,7 @@
             <li>> <%= link_to @location_type.name, @location_type %></li>
           <% end %>
         <% end %>
-      </ul>
-			</h1>
+      </ul></h1>
       <% end %>
 			
       <% if flash.length > 0 %>
@@ -113,7 +52,7 @@
 	<div class="footer">
 		&copy; 2010 Talking Points | <%= link_to 'Contact Us', contact_path %>
 	</div>
-</div>  
+</div>
 
 </body>
 </html>
