@@ -60,7 +60,7 @@
 				<% if !(controller.controller_name == 'info' and controller.action_name == 'index') %>
 				<div class="box">
 					<h2>Recent Blog Entries</h2>
-					<div class="more"><a href="<%= blog_path %>">more >></a></div>
+					<div class="more"><%= link_to 'more >>', 'http://blog.talking-points.org' %></div>
 				</div>
 
 				<% end %>
