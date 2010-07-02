@@ -1,3 +1,24 @@
+<% content_for :right_box do %>
+
+  <div class="box">
+    <h2>Contact Us</h2>
+	</div>
+  <p>
+    Adaptive Technology Computing Site<br />
+    Shapiro Undergraduate Library<br />
+    Room 1128<br />
+    Ann Arbor, MI 48104<br />
+    <%= mail_to 'talking_pointsuxdev@googlegroups.com' %>
+  </p>
+  
+<% end %>
+
+
 <h1>About the Talking-Points Project</h1>
 
-<p>About the project ...</p>
+<p>Welcome to the Talking Points blog! Here you'll find information about the work we're doing on 
+the application, updates on milestones in the project, news, and information on how you can get
+involved. If you have any questions or comments, please contact us at<br />
+<%= mail_to 'talking_pointsuxdev@googlegroups.com' %></p>
+
+

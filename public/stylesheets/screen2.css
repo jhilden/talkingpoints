@@ -136,6 +136,16 @@ img#logo	{
 	font-style: italic;
 }
 
+.right_box p {
+	text-align: left;
+  clear: both;
+  border-top: dotted 1px #a3a2a2;
+  background-color: #fff;
+  color: #7d7b7b;
+  padding: 1em;
+  line-height: 1.5em;
+}
+
 .right_box .box:after{
 	content: "."; 
 	display: block; 
@@ -193,6 +203,7 @@ ul.menu li ul	{
 	left: 0;
 	color: #fff;
 	background-color: #1072ba;
+	z-index: 99;
 }
 ul.menu li > ul	{
 	top: auto;
@@ -288,17 +299,46 @@ p	{
 	margin: 0;
 }
 
-.right_box #new_user_session label {
+/* login form */
+
+.right_box #new_user_session {
+  position: relative;
+}
+.right_box #new_user_session div {
+  position: relative;
+  float: left;
+	margin: 0 0 .4em 0;
+}
+.right_box #new_user_session #user_session_username, .right_box #new_user_session #user_session_password {
+  width: 192px;
+	padding-left: .3em;
+}
+.right_box #new_user_session #remember_me {
+  margin: 0;
+}
+.right_box #new_user_session #remember_me label {
   display: inline;
 }
-.right_box #new_user_session input {
-  display: block;
+.right_box #new_user_session label.overlabel-apply {
+	position: absolute;
+	top: .3em;
+  left: .5em;
+  z-index: 1;
+  color: #999;
 }
-.right_box #new_user_session #user_session_remember_me {
-	display: inline;
+.right_box #new_user_session label.focus {
+  color: #ccc;
 }
 .right_box #new_user_session #user_session_submit {
   float: right;
+	position: relative;
+	top: -33px;
+	padding: .3em .5em;
+}
+
+.right_box #join {
+	clear: both;
+	display: block;
 }
 
 
