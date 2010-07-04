@@ -12,4 +12,5 @@ db/schema.rb
 .DS_Store
 .gitignore~
 db/sphinx/*
-
+tmp/*
+.sass-cache

@@ -1,0 +1,34 @@
+html, body  {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: verdana, sans-serif !important;
+  font-size: 100% !important;
+}
+a {
+  color: $medium-blue;
+}
+a:hover {
+  color: $light-blue;
+}
+a.ui-button:hover { color: $white; } /* fix */
+img {
+  border: 0;
+}
+p, li, span, a {
+  line-height: 1.5em;
+}
+label {
+  display: block;
+}
+p {
+  margin: 0 0 2em 0;
+}
+textarea {
+  height: 200px;
+}
+input[type="text"],input[type="password"] {
+  border: solid 1px $gray;
+  outline: none;
+  height: 22px;
+}

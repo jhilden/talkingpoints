@@ -1,8 +1,24 @@
+<h1>About the Talking-Points Project</h1>
+
+<p>Welcome to the Talking Points blog! Here you'll find information about the work we're doing on 
+the application, updates on milestones in the project, news, and information on how you can get
+involved. If you have any questions or comments, please contact us at<br />
+<%= mail_to 'talking_pointsuxdev@googlegroups.com' %></p>
+
+<h3>More information about the project:</h3>
+
+<ul>
+	<li><%= link_to "Talking-Points in the news", inthenews_path %></li>
+	<li><%= link_to "The Talking-Points team", team_path %></li>
+	<li><%= link_to "How to get involved", getinvolved_path %></li>
+	<li><%= link_to "Contact information", inthenews_path %></li>
+</ul>
+
 <% content_for :right_box do %>
 
   <div class="box">
     <h2>Contact Us</h2>
-	</div>
+  </div>
   <p>
     Adaptive Technology Computing Site<br />
     Shapiro Undergraduate Library<br />
@@ -12,13 +28,3 @@
   </p>
   
 <% end %>
-
-
-<h1>About the Talking-Points Project</h1>
-
-<p>Welcome to the Talking Points blog! Here you'll find information about the work we're doing on 
-the application, updates on milestones in the project, news, and information on how you can get
-involved. If you have any questions or comments, please contact us at<br />
-<%= mail_to 'talking_pointsuxdev@googlegroups.com' %></p>
-
-

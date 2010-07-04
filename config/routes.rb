@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :controller => 'info' do |info|
     info.about 'about', :action => 'about'
     info.team 'team', :action => 'team'
-    info.news 'news', :action => 'news'
+    info.inthenews 'inthenews', :action => 'news'
     info.contact 'contact', :action => 'contact'
     info.getinvolved 'getinvolved', :action => 'getinvolved'
     info.volunteer 'volunteer', :action => 'volunteer'

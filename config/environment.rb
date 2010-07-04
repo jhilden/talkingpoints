@@ -32,6 +32,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem "authlogic"
   config.gem "geokit"
+  config.gem "haml"
   if RAILS_ENV == 'production'
     config.gem "thinking-sphinx" # this is not in /config/environments/production.rb because Passenger was complaining
   end

@@ -1,0 +1,12 @@
+$medium-blue: #1FAADC;
+$light-blue: #63C9F3;
+$dark-blue:   #1072BA;
+$gray:        #999999;
+$light-gray:  #CCCCCC;
+$black:       #000000;
+$white:       #FFFFFF;
+
+@import "element_defaults.scss";
+@import "generic.scss";
+@import "layout.scss";
+@import "page_specific.scss";

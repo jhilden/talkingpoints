@@ -1,0 +1,89 @@
+/*
+Syntax error: Undefined variable: "$medium-blue".
+        on line 9 of /home/jk/Aptana Studio Workspace/talkingpoints/public/stylesheets/sass/element_defaults.scss
+
+4:   text-align: center;
+5:   font-family: verdana, sans-serif !important;
+6:   font-size: 100% !important;
+7: }
+8: a {
+9:   color: $medium-blue;
+10: }
+11: a:hover {
+12:   color: $light-blue;
+13: }
+14: a.ui-button:hover { color: $white; } /* fix */
+
+Backtrace:
+/home/jk/Aptana Studio Workspace/talkingpoints/public/stylesheets/sass/element_defaults.scss:9
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/script/variable.rb:39:in `_perform'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/script/node.rb:61:in `perform'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/prop_node.rb:132:in `perform!'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:301:in `_perform'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:209:in `perform'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:322:in `perform_children'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:322:in `map'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:322:in `perform_children'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:313:in `perform!'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/rule_node.rb:191:in `perform!'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:301:in `_perform'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:209:in `perform'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:322:in `perform_children'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:322:in `map'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:322:in `perform_children'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:313:in `perform!'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/root_node.rb:59:in `perform!'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:301:in `_perform'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/node.rb:209:in `perform'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/root_node.rb:37:in `perform'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/tree/root_node.rb:29:in `render'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/plugin.rb:221:in `update_stylesheet'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/plugin.rb:86:in `update_stylesheets'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/plugin.rb:79:in `each'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/plugin.rb:79:in `update_stylesheets'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/plugin.rb:77:in `each'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/plugin.rb:77:in `update_stylesheets'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/plugin.rb:51:in `check_for_updates'
+/home/jk/.gem/ruby/1.8/gems/haml-3.0.13/rails/../lib/sass/plugin/rack.rb:40:in `call'
+/home/jk/.gem/ruby/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+/home/jk/.gem/ruby/1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+/home/jk/.gem/ruby/1.8/gems/actionpack-2.3.5/lib/action_controller/session/cookie_store.rb:93:in `call'
+/home/jk/.gem/ruby/1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `synchronize'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+/home/jk/.gem/ruby/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `call'
+/home/jk/.gem/ruby/1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+/home/jk/.gem/ruby/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+/home/jk/.gem/ruby/1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `call'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+/home/jk/.gem/ruby/1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/chunked.rb:15:in `call'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:64:in `process'
+/usr/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:159:in `process_client'
+/usr/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `each'
+/usr/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `process_client'
+/usr/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+/usr/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `initialize'
+/usr/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `new'
+/usr/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+/usr/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `initialize'
+/usr/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `new'
+/usr/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `run'
+/home/jk/.gem/ruby/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:34:in `run'
+/home/jk/.gem/ruby/1.8/gems/rails-2.3.5/lib/commands/server.rb:111
+/usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+./script/server:3
+-e:2:in `load'
+-e:2
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined variable: \"$medium-blue\".\A         on line 9 of /home/jk/Aptana Studio Workspace/talkingpoints/public/stylesheets/sass/element_defaults.scss\A \A 4:   text-align: center;\A 5:   font-family: verdana, sans-serif !important;\A 6:   font-size: 100% !important;\A 7: }\A 8: a {\A 9:   color: $medium-blue;\A 10: }\A 11: a:hover {\A 12:   color: $light-blue;\A 13: }\A 14: a.ui-button:hover { color: $white; } /* fix */"; }

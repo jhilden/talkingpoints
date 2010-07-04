@@ -9,7 +9,7 @@
     <div class="right_column">
     	<%= render :partial => 'shared/right_box' %>
 			
-			<%= render :partial => 'shared/featured' %>
+			<%= render :partial => 'shared/right_features' %>
 		</div>
 		
 		<div class="left_column">
@@ -49,8 +49,10 @@
 	
 	<%= yield :below_columns %>
 	
-	<div class="footer">
-		&copy; 2010 Talking Points | <%= link_to 'Contact Us', contact_path %>
+	<div id="footer">
+		&copy; 2010 Talking Points | 
+		<%= link_to 'In the news', inthenews_path %>|
+		<%= link_to 'Contact Us', contact_path %>
 	</div>
 </div>
 
