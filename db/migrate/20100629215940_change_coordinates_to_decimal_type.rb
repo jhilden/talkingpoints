@@ -1,7 +1,7 @@
 class ChangeCoordinatesToDecimalType < ActiveRecord::Migration
   def self.up
-    change_column :locations, :lat, :decimal, :precision => 15, :scale => 10
-    change_column :locations, :lng, :decimal, :precision => 15, :scale => 10
+    change_column :locations, :lat, :decimal, :precision => 19, :scale => 15
+    change_column :locations, :lng, :decimal, :precision => 19, :scale => 15
   end
 
   def self.down
