@@ -5,7 +5,7 @@ class LocationsController < ApplicationController
   
   # GET /locations
   def index
-    @locations = Location.all
+    @locations = Location.find(:all, :order => sort_order('name'))
 
     respond_to do |format|
       format.html # index.html.erb
@@ -258,4 +258,9 @@ class LocationsController < ApplicationController
       end
       return output
     end
+
+	def sort_order(default)
+      "#{(params[:c] || default.to_s).gsub(/[\s;'\"]/,'')} #{params[:d] == 'down' ? 'DESC' : 'ASC'}"
+  end
+
 end

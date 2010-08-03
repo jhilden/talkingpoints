@@ -42,6 +42,11 @@
 <%= link_to 'Add new location', new_location_path, {:id => 'add-new-location', :class => 'create'} %>
 
 <% if @locations.size > 0 %>
+
+
+
+<div>Sort by: <%= sort_link 'Location Name', :name %> | <%= sort_link 'Last Updated', :updated_at %></div>
+
   <ul class="location-list">	
 	<% @locations.each do |location| %>
 	  <% if current_user or !location.hidden %>
