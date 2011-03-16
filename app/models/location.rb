@@ -11,21 +11,21 @@ class Location < ActiveRecord::Base
   validates_presence_of :name, :location_type
   validates_associated :user, :location_type
   
-  if RAILS_ENV == 'production'
-    define_index do
-      indexes :name
-      indexes description
-      indexes sections.name
-      indexes sections.text
-      indexes street
-      indexes city
-      indexes url
-      indexes location_type.name
-      indexes comments.title
-      indexes comments.text
-      indexes user.username
-    end
-  end
+  #  if RAILS_ENV == 'production'
+  #    define_index do
+  #      indexes :name
+  #      indexes description
+  #      indexes sections.name
+  #      indexes sections.text
+  #      indexes street
+  #      indexes city
+  #      indexes url
+  #      indexes location_type.name
+  #      indexes comments.title
+  #      indexes comments.text
+  #      indexes user.username
+  #    end
+  #  end
   
   def address_empty?
     if !self.street.blank? or !self.city.blank? or !self.state.blank? or !self.postal_code.blank?
